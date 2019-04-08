@@ -1,0 +1,56 @@
+<html>
+<head>
+  <title>vl-radio voorbeeld</title>
+</head>
+
+<script type="module" src="../vl-radio.src.js"></script>
+
+
+<style>
+  body {
+    padding: 1.5rem !important;
+  }
+
+  div:not(:first-child) {
+    margin-top: 3rem;
+  }
+</style>
+
+<body>
+
+<div>
+  <vl-radio label="Ja" value="1" name="group-0"></vl-radio>
+  <vl-radio label="Nee" value="1" name="group-0"></vl-radio>
+</div>
+
+
+<div>
+  <vl-radio label="Ja" value="1" name="group-1" checked></vl-radio>
+  <vl-radio label="Nee" value="1" name="group-1" ></vl-radio>
+</div>
+
+
+<div>
+  <vl-radio label="Ja" value="1" name="group-2" block></vl-radio>
+  <vl-radio label="Nee" value="1" name="group-2" block></vl-radio>
+</div>
+
+
+<div>
+  <vl-radio label="Ja" value="1" name="group-3" error></vl-radio>
+</div>
+
+
+<div>
+  <vl-radio label="Ja" value="1" name="group-4" disabled></vl-radio>
+  <vl-radio label="Nee" vlkue="1" name="group-4" disabled></vl-radio>
+</div>
+
+<div>
+  <vl-radio label="Nee" value="1" name="group-5" single></vl-radio>
+</div>
+
+
+
+</body>
+</html>
