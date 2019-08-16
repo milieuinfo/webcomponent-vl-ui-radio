@@ -5,6 +5,8 @@ import { VlElement } from '/node_modules/vl-ui-core/vl-core.src.js';
  * TODO
  *
  * @demo demo/vl-radio.html
+ * 
+ * @version <a href="http://www.github.com/milieuinfo/webcomponent-vl-ui-radio/releases/latest">Release notes</a>
  */
 export class VlRadio extends VlElement(HTMLElement) {
   static get _observedAttributes() {
