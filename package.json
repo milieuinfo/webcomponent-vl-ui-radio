@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@govflanders/vl-ui-core": "^3.7.2",
-    "@govflanders/vl-ui-form-message": "3.7.2",
+    "@govflanders/vl-ui-form-message": "3.9.0",
     "@govflanders/vl-ui-form-structure": "3.7.2",
     "@govflanders/vl-ui-util": "3.7.2",
     "vl-ui-core": "1.4.4"
