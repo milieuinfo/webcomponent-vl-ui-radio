@@ -30,10 +30,10 @@
     "@govflanders/vl-ui-form-message": "3.9.0",
     "@govflanders/vl-ui-form-structure": "3.9.0",
     "@govflanders/vl-ui-util": "3.9.0",
-    "vl-ui-core": "1.4.7"
+    "vl-ui-core": "2.0.0"
   },
   "peerDependencies": {
-    "vl-ui-core": "1.4.7"
+    "vl-ui-core": "2.0.0"
   },
   "devDependencies": {
     "@govflanders/vl-ui-radio": "^3.7.2",
@@ -42,7 +42,7 @@
     "replace": "1.1.1",
     "uglify-js-es6": "2.8.9",
     "vl-ui-icon": "2.1.0",
-    "vl-ui-util": "^1.2.23",
+    "vl-ui-util": "^2.0.0",
     "wct-browser-legacy": "1.0.2",
     "web-component-tester": "6.9.2"
   },
