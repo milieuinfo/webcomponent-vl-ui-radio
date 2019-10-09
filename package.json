@@ -29,7 +29,7 @@
     "@govflanders/vl-ui-core": "^3.7.2",
     "@govflanders/vl-ui-form-message": "3.9.0",
     "@govflanders/vl-ui-form-structure": "3.9.0",
-    "@govflanders/vl-ui-util": "3.9.0",
+    "@govflanders/vl-ui-util": "3.9.1",
     "vl-ui-core": "2.1.0"
   },
   "peerDependencies": {
