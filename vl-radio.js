@@ -1,4 +1,4 @@
-import{VlElement}from"/node_modules/vl-ui-core/vl-core.src.js";export class VlRadio extends VlElement(HTMLElement){static get _observedAttributes(){return["label","name","value","checked"]}static get _observedChildClassAttributes(){return["block","single","disabled","error"]}constructor(){super(`
+import{VlElement}from"/node_modules/vl-ui-core/vl-core.js";export class VlRadio extends VlElement(HTMLElement){static get _observedAttributes(){return["label","name","value","checked"]}static get _observedChildClassAttributes(){return["block","single","disabled","error"]}constructor(){super(`
             <style>
                 @import '/node_modules/vl-ui-radio/style.css';
             </style>
