@@ -1,25 +1,24 @@
-
-const { assert, driver } = require('vl-ui-core').Test;
+const { assert, driver } = require('vl-ui-core').Test.Setup;
 const VlRadioPage = require('./pages/vl-radio.page');
 
 describe('vl-radio', async () => {
-    const vLRadioPage = new VLRadioPage(driver);
+    const vlRadioPage = new VlRadioPage(driver);
 
     before(() => {
-        return vLRadioPage.load();
+        return vlRadioPage.load();
     });
 
     it('als gebruiker kan ik maar 1 radio tegelijkertijd aanvinken', async () => {
-      // const checkbox1 = await vlRadioPage.getRadio1(); //todo
-      // const checkbox2 = await vlRadioPage.getRadio2();
-      //
-      // await assert.eventually.isFalse(checkbox1.isChecked());
-      // await assert.eventually.isTrue(checkbox2.isChecked());
-      // await checkbox1.click();
-      // await checkbox2.click();
-      // await assert.eventually.isTrue(checkbox1.isChecked());
-      // await assert.eventually.isFalse(checkbox2.isChecked());
-    });
+      const radio1 = await vlRadioPage.getRadio1();
+      const radio2 = await vlRadioPage.getRadio2();
 
-    // after(() => driver && driver.quit()); // todo nodig? checkbox heeft dit ook niet...
+      await assert.eventually.isFalse(radio1.isChecked());
+      await assert.eventually.isFalse(radio2.isChecked());
+      await radio1.toggle();
+      await assert.eventually.isTrue(radio1.isChecked());
+      await assert.eventually.isFalse(radio2.isChecked());
+      await radio2.toggle();
+      await assert.eventually.isFalse(radio1.isChecked());
+      await assert.eventually.isTrue(radio2.isChecked());
+    });
 });

@@ -1,7 +1,7 @@
-const VLRadio = require('../components/vl-radio');
-const { Page, Config } = require('vl-ui-core');
+const VlRadio = require('../components/vl-radio');
+const { Page, Config } = require('vl-ui-core').Test;
 
-class VLRadioPage extends Page {
+class VlRadioPage extends Page {
     async _getRadio(selector) {
         return new VlRadio(this.driver, selector);
     }
@@ -15,8 +15,8 @@ class VLRadioPage extends Page {
   }
 
     async load() {
-        await super.load(Config.baseUrl + '/demo/vl-checkbox.html');
+        await super.load(Config.baseUrl + '/demo/vl-radio.html');
     }
 }
 
-module.exports = VLRadioPage;
+module.exports = VlRadioPage;
