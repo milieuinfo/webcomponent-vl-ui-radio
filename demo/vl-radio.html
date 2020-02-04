@@ -1,10 +1,11 @@
 <html>
 <head>
   <title>vl-radio voorbeeld</title>
+  <script type="module" src="demo.js"></script>
+  <script type="module" src="/src/vl-radio.src.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="/node_modules/vl-ui-core/style.css"/>
 </head>
-
-<script type="module" src="../vl-radio.src.js"></script>
-
 
 <style>
   body {
@@ -17,40 +18,29 @@
 </style>
 
 <body>
-
-<div>
-  <vl-radio label="Ja" value="1" name="group-0"></vl-radio>
-  <vl-radio label="Nee" value="1" name="group-0"></vl-radio>
-</div>
-
-
-<div>
-  <vl-radio label="Ja" value="1" name="group-1" checked></vl-radio>
-  <vl-radio label="Nee" value="1" name="group-1" ></vl-radio>
-</div>
-
-
-<div>
-  <vl-radio label="Ja" value="1" name="group-2" block></vl-radio>
-  <vl-radio label="Nee" value="1" name="group-2" block></vl-radio>
-</div>
-
-
-<div>
-  <vl-radio label="Ja" value="1" name="group-3" error></vl-radio>
-</div>
-
-
-<div>
-  <vl-radio label="Ja" value="1" name="group-4" disabled></vl-radio>
-  <vl-radio label="Nee" vlkue="1" name="group-4" disabled></vl-radio>
-</div>
-
-<div>
-  <vl-radio label="Nee" value="1" name="group-5" single></vl-radio>
-</div>
-
-
-
+  <vl-demo-pagina data-vl-title="vl-ui-radio demo" data-vl-link="https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-radio">
+    <template data-vl-title="Radio">
+      <vl-radio label="Ja" value="yes" name="group-0" id="radio-1"></vl-radio>
+      <vl-radio label="Nee" value="no" name="group-0" id="radio-2"></vl-radio>
+    </template>
+    <template data-vl-title="Radio checked">
+      <vl-radio label="Ja" value="yes" name="group-1"></vl-radio>
+      <vl-radio label="Nee" value="no" name="group-1" checked></vl-radio>
+    </template>
+    <template data-vl-title="Radio block">
+      <vl-radio label="Ja" value="yes" name="group-2" block></vl-radio>
+      <vl-radio label="Nee" value="no" name="group-2" block></vl-radio>
+    </template>
+    <template data-vl-title="Radio error">
+      <vl-radio label="Ja" value="yes" name="group-3" error></vl-radio>
+    </template>
+    <template data-vl-title="Radio disabled">
+      <vl-radio label="Ja" value="yes" name="group-4" disabled></vl-radio>
+      <vl-radio label="Nee" value="no" name="group-4" disabled></vl-radio>
+    </template>
+    <template data-vl-title="Radio single">
+      <vl-radio label="Nee" value="no" name="group-5" single></vl-radio>
+    </template>
+  </vl-demo-pagina>
 </body>
 </html>

@@ -1,13 +1,20 @@
-import {VlElement, define} from 'vl-ui-core';
+import {VlElement, define} from '/node_modules/vl-ui-core/vl-core.js';
 
 /**
  * VlRadio
  * @class
- * @classdesc
+ * @classdesc De radio laat de gebruiker toe om een enkele optie te selecteren
+ *            uit een lijst. Gebruik de radio in formulieren. Vermijd een
+ *            voorgedefinieerde keuze vast te leggen om de gebruiker een bewuste
+ *            keuze te laten maken.
  *
  * @extends VlElement
  *
- * @property
+ * @property {boolean} block - Attribuut wordt gebruikt om ervoor te zorgen dat de radio getoond wordt als een block element en bijgevolg de breedte van de parent zal aannemen.
+ * @property {boolean} error - Attribuut wordt gebruikt om aan te duiden dat de radio verplicht is.
+ * @property {boolean} disabled - Attribuut wordt gebruikt om te voorkomen dat de gebruiker de radio kan selecteren.
+ * @property {boolean} single - Attribuut wordt gebruikt om alleen een radio te tonen zonder label.
+ * @property {boolean} name - Attribuut wordt gebruikt om te koppelen met andere radio's door dezelfde name te kiezen met de VlRadio als siblings, zodat maar 1 kan geselecteerd worden.
  *
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-radio/releases/latest|Release notes}
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-radio/issues|Issues}
@@ -56,26 +63,11 @@ export class VlRadio extends VlElement(HTMLElement) {
   }
 
   _toggle() {
-    let checked;
     const parent = this.getRootNode().host;
-    if (parent._checked && Array.isArray(parent._checked)) {
-      const value = JSON.parse(this.value);
-      if (parent._checked.indexOf(value) > -1) {
-        parent._checked.splice(parent._checked.indexOf(value), 1);
-      } else {
-        parent._checked.push(value);
-      }
-      checked = parent._checked;
-      parent.setAttribute('checked', JSON.stringify(checked));
-    } else {
-      checked = this.checked;
-    }
-    this.dispatchEvent(new CustomEvent('input',
-        {detail: checked, bubbles: true, composed: true}));
     Array.from(parent.parentElement.querySelectorAll(
         'vl-radio[name=' + this.name + ']')).filter(f => f !== parent).filter(
-        radio => radio._inputElement.checked).forEach(
-        radio => radio._inputElement.checked = false)
+        radio => radio.checked).forEach(
+        radio => radio.checked = false);
   }
 
   _labelChangedCallback(oldValue, newValue) {
@@ -91,23 +83,20 @@ export class VlRadio extends VlElement(HTMLElement) {
     this._inputElement.name = newValue;
   }
 
-  _checkedChangedCallback(oldValue, newValue) {
-    try {
-      this._checked = JSON.parse(newValue);
-    } catch (error) {
-      this._checked = newValue != undefined;
-    }
+  get checked() {
+    return this._inputElement.checked;
+  }
 
-    if (!Array.isArray(this._checked)) {
-      this._inputElement.checked = this._checked;
-    } else if (this._checked.indexOf(JSON.parse(this._inputElement.value))
-        > -1) {
-      this._inputElement.checked = true;
-    }
+  set checked(value) {
+    return this._inputElement.checked = value;
+  }
+
+  _checkedChangedCallback(oldValue, newValue) {
+    this._inputElement.checked = newValue !== 'false';
   }
 
   _disabledChangedCallback(oldValue, newValue) {
-    this._inputElement.disabled = newValue != undefined;
+    this._inputElement.disabled = newValue != null;
   }
 
   _singleChangedCallback() {
@@ -129,4 +118,3 @@ export class VlRadio extends VlElement(HTMLElement) {
 }
 
 define('vl-radio', VlRadio);
-
