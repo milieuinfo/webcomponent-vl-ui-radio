@@ -144,14 +144,18 @@
         const radios = fixture('vl-radios-fixture');
         const radio1 = radios[0];
         const radio2 = radios[1];
+        const radio3 = radios[2];
         assert.isFalse(radio1.checked);
         assert.isFalse(radio2.checked);
+        assert.isFalse(radio3.checked);
         radio1.toggle();
         assert.isTrue(radio1.checked);
         assert.isFalse(radio2.checked);
+        assert.isFalse(radio3.checked);
         radio2.toggle();
         assert.isFalse(radio1.checked);
         assert.isTrue(radio2.checked);
+        assert.isFalse(radio3.checked);
       });
     });
 
