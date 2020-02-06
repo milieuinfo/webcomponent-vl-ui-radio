@@ -28,7 +28,7 @@ export class VlRadio extends VlElement(HTMLElement) {
                 @import '../style.css';
             </style>
             
-             <label class="vl-radio" for="radio">
+            <label class="vl-radio" for="radio">
               <input class="vl-radio__toggle" type="radio" id="radio" name="radio" value="1"/>
               <div class="vl-radio__label"></div>
             </label>

@@ -14,6 +14,10 @@ class VlRadioPage extends Page {
     return await this._getRadio('#radio-2');
   }
 
+  async getRadio3() {
+    return await this._getRadio('#radio-3');
+  }
+
     async load() {
         await super.load(Config.baseUrl + '/demo/vl-radio.html');
     }

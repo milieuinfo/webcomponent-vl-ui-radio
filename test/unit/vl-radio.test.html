@@ -54,7 +54,7 @@
         assert.isFalse(radioInput.checked);
         radio.setAttribute('checked', true);
         assert.isTrue(radioInput.checked);
-        radio.setAttribute('checked', false);
+        radio.removeAttribute('checked');
         assert.isFalse(radioInput.checked);
       });
 
@@ -97,7 +97,7 @@
 
       test('het klikken op het input veld zal een event gooien met de waarde van het boolean checked attribuut', (done) => {
         const radio = fixture('vl-radio-fixture');
-        radio.addEventListener('input', (e) => {
+        radio.shadowRoot.querySelector('input').addEventListener('input', (e) => {
           assert.isTrue(e.srcElement.checked);
           done();
         });
@@ -106,7 +106,7 @@
 
       test('toggle zal een event gooien met de waarde van het boolean checked attribuut', (done) => {
         const radio = fixture('vl-radio-fixture');
-        radio.addEventListener('input', (e) => {
+        radio.shadowRoot.querySelector('input').addEventListener('input', (e) => {
           assert.isTrue(e.srcElement.checked);
           done();
         });
@@ -118,7 +118,7 @@
         const radio = radios[0];
         const radioInput = radio.shadowRoot.querySelector('input');
         let counter = 0;
-        radio.addEventListener('input', (e) => {
+        radioInput.addEventListener('input', (e) => {
           counter++;
           if (e.srcElement.checked) {
             setTimeout(() => {

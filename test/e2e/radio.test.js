@@ -11,14 +11,18 @@ describe('vl-radio', async () => {
     it('als gebruiker kan ik maar 1 radio tegelijkertijd aanvinken', async () => {
       const radio1 = await vlRadioPage.getRadio1();
       const radio2 = await vlRadioPage.getRadio2();
+      const radio3 = await vlRadioPage.getRadio3();
 
       await assert.eventually.isFalse(radio1.isChecked());
       await assert.eventually.isFalse(radio2.isChecked());
+      await assert.eventually.isFalse(radio3.isChecked());
       await radio1.toggle();
       await assert.eventually.isTrue(radio1.isChecked());
       await assert.eventually.isFalse(radio2.isChecked());
+      await assert.eventually.isFalse(radio3.isChecked());
       await radio2.toggle();
       await assert.eventually.isFalse(radio1.isChecked());
       await assert.eventually.isTrue(radio2.isChecked());
+      await assert.eventually.isFalse(radio3.isChecked());
     });
 });

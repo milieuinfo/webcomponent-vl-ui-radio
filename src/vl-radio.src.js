@@ -14,7 +14,7 @@ import {VlElement, define} from '/node_modules/vl-ui-core/vl-core.js';
  * @property {boolean} error - Attribuut wordt gebruikt om aan te duiden dat de radio verplicht is.
  * @property {boolean} disabled - Attribuut wordt gebruikt om te voorkomen dat de gebruiker de radio kan selecteren.
  * @property {boolean} single - Attribuut wordt gebruikt om alleen een radio te tonen zonder label.
- * @property {boolean} name - Attribuut wordt gebruikt om te koppelen met andere radio's door dezelfde name te kiezen met de VlRadio als siblings, zodat maar 1 kan geselecteerd worden.
+ * @property {boolean} name - Attribuut wordt gebruikt om verschillende sibling radio's dezelfde name te geven, met als gevolg dat er maar 1 in die groep kan geselecteerd worden.
  *
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-radio/releases/latest|Release notes}
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-radio/issues|Issues}
@@ -35,9 +35,11 @@ export class VlRadio extends VlElement(HTMLElement) {
                 @import '../style.css';
             </style>
             
-             <label class="vl-radio" for="radio">
+            <label class="vl-radio" for="radio">
               <input class="vl-radio__toggle" type="radio" id="radio" name="radio" value="1"/>
-              <div class="vl-radio__label"></div>
+              <div class="vl-radio__label">
+                <span id="label-text"></span>
+              </div>
             </label>
         `);
   }
@@ -54,8 +56,8 @@ export class VlRadio extends VlElement(HTMLElement) {
     return this._element.querySelector('input');
   }
 
-  get _radioLabelElement() {
-    return this._element.querySelector('.vl-radio__label');
+  get _labelText() {
+    return this._element.querySelector('#label-text');
   }
 
   toggle() {
@@ -64,15 +66,18 @@ export class VlRadio extends VlElement(HTMLElement) {
 
   _toggle() {
     const parent = this.getRootNode().host;
-    Array.from(parent.parentElement.querySelectorAll(
-        'vl-radio[name=' + this.name + ']')).filter(f => f !== parent).filter(
-        radio => radio.checked).forEach(
-        radio => radio.checked = false);
+    let radiosMetDezelfdeName = parent.parentElement.querySelectorAll(
+        'vl-radio[name=' + this.name + ']');
+    // @formatter:off
+    Array.from(radiosMetDezelfdeName)
+         .filter(f => f !== parent)
+         .filter(radio => radio.checked)
+         .forEach(radio => radio.checked = false);
+    // @formatter:on
   }
 
   _labelChangedCallback(oldValue, newValue) {
-    this._label = newValue;
-    this._radioLabelElement.append(this._label);
+    this._labelText.textContent = newValue;
   }
 
   _valueChangedCallback(oldValue, newValue) {
@@ -92,28 +97,19 @@ export class VlRadio extends VlElement(HTMLElement) {
   }
 
   _checkedChangedCallback(oldValue, newValue) {
-    this._inputElement.checked = newValue !== 'false';
+    this._inputElement.checked = newValue != null;
   }
 
   _disabledChangedCallback(oldValue, newValue) {
     this._inputElement.disabled = newValue != null;
   }
 
-  _singleChangedCallback() {
-    [...this._radioLabelElement.childNodes].filter(this._isTextNode).forEach(
-        this._removeNode);
-    const span = document.createElement('span');
-    span.classList.add('vl-u-visually-hidden');
-    span.textContent = this._label;
-    this._radioLabelElement.appendChild(span);
-  }
-
-  _isTextNode(node) {
-    return node.nodeType === 3;
-  }
-
-  _removeNode(node) {
-    node.remove();
+  _singleChangedCallback(oldValue, newValue) {
+    if (newValue != null) {
+      this._labelText.classList.add('vl-u-visually-hidden');
+    } else {
+      this._labelText.classList.remove('vl-u-visually-hidden');
+    }
   }
 }
 
