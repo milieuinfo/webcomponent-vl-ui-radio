@@ -3,11 +3,18 @@ import {VlElement, define} from 'vl-ui-core';
 /**
  * VlRadio
  * @class
- * @classdesc
+ * @classdesc De radio laat de gebruiker toe om een enkele optie te selecteren
+ *            uit een lijst. Gebruik de radio in formulieren. Vermijd een
+ *            voorgedefinieerde keuze vast te leggen om de gebruiker een bewuste
+ *            keuze te laten maken.
  *
  * @extends VlElement
  *
- * @property
+ * @property {boolean} block - Attribuut wordt gebruikt om ervoor te zorgen dat de radio getoond wordt als een block element en bijgevolg de breedte van de parent zal aannemen.
+ * @property {boolean} error - Attribuut wordt gebruikt om aan te duiden dat de radio verplicht is.
+ * @property {boolean} disabled - Attribuut wordt gebruikt om te voorkomen dat de gebruiker de radio kan selecteren.
+ * @property {boolean} single - Attribuut wordt gebruikt om alleen een radio te tonen zonder label.
+ * @property {boolean} name - Attribuut wordt gebruikt om verschillende sibling radio's dezelfde name te geven, met als gevolg dat er maar 1 in die groep kan geselecteerd worden.
  *
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-radio/releases/latest|Release notes}
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-radio/issues|Issues}
@@ -30,7 +37,9 @@ export class VlRadio extends VlElement(HTMLElement) {
             
             <label class="vl-radio" for="radio">
               <input class="vl-radio__toggle" type="radio" id="radio" name="radio" value="1"/>
-              <div class="vl-radio__label"></div>
+              <div class="vl-radio__label">
+                <span id="label-text"></span>
+              </div>
             </label>
         `);
   }
@@ -47,8 +56,8 @@ export class VlRadio extends VlElement(HTMLElement) {
     return this._element.querySelector('input');
   }
 
-  get _radioLabelElement() {
-    return this._element.querySelector('.vl-radio__label');
+  get _labelText() {
+    return this._element.querySelector('#label-text');
   }
 
   toggle() {
@@ -56,31 +65,19 @@ export class VlRadio extends VlElement(HTMLElement) {
   }
 
   _toggle() {
-    let checked;
     const parent = this.getRootNode().host;
-    if (parent._checked && Array.isArray(parent._checked)) {
-      const value = JSON.parse(this.value);
-      if (parent._checked.indexOf(value) > -1) {
-        parent._checked.splice(parent._checked.indexOf(value), 1);
-      } else {
-        parent._checked.push(value);
-      }
-      checked = parent._checked;
-      parent.setAttribute('checked', JSON.stringify(checked));
-    } else {
-      checked = this.checked;
-    }
-    this.dispatchEvent(new CustomEvent('input',
-        {detail: checked, bubbles: true, composed: true}));
-    Array.from(parent.parentElement.querySelectorAll(
-        'vl-radio[name=' + this.name + ']')).filter(f => f !== parent).filter(
-        radio => radio._inputElement.checked).forEach(
-        radio => radio._inputElement.checked = false)
+    let radiosMetDezelfdeName = parent.parentElement.querySelectorAll(
+        'vl-radio[name=' + this.name + ']');
+    // @formatter:off
+    Array.from(radiosMetDezelfdeName)
+         .filter(f => f !== parent)
+         .filter(radio => radio.checked)
+         .forEach(radio => radio.checked = false);
+    // @formatter:on
   }
 
   _labelChangedCallback(oldValue, newValue) {
-    this._label = newValue;
-    this._radioLabelElement.append(this._label);
+    this._labelText.textContent = newValue;
   }
 
   _valueChangedCallback(oldValue, newValue) {
@@ -91,40 +88,28 @@ export class VlRadio extends VlElement(HTMLElement) {
     this._inputElement.name = newValue;
   }
 
-  _checkedChangedCallback(oldValue, newValue) {
-    try {
-      this._checked = JSON.parse(newValue);
-    } catch (error) {
-      this._checked = newValue != undefined;
-    }
+  get checked() {
+    return this._inputElement.checked;
+  }
 
-    if (!Array.isArray(this._checked)) {
-      this._inputElement.checked = this._checked;
-    } else if (this._checked.indexOf(JSON.parse(this._inputElement.value))
-        > -1) {
-      this._inputElement.checked = true;
-    }
+  set checked(value) {
+    return this._inputElement.checked = value;
+  }
+
+  _checkedChangedCallback(oldValue, newValue) {
+    this._inputElement.checked = newValue != null;
   }
 
   _disabledChangedCallback(oldValue, newValue) {
-    this._inputElement.disabled = newValue != undefined;
+    this._inputElement.disabled = newValue != null;
   }
 
-  _singleChangedCallback() {
-    [...this._radioLabelElement.childNodes].filter(this._isTextNode).forEach(
-        this._removeNode);
-    const span = document.createElement('span');
-    span.classList.add('vl-u-visually-hidden');
-    span.textContent = this._label;
-    this._radioLabelElement.appendChild(span);
-  }
-
-  _isTextNode(node) {
-    return node.nodeType === 3;
-  }
-
-  _removeNode(node) {
-    node.remove();
+  _singleChangedCallback(oldValue, newValue) {
+    if (newValue != null) {
+      this._labelText.classList.add('vl-u-visually-hidden');
+    } else {
+      this._labelText.classList.remove('vl-u-visually-hidden');
+    }
   }
 }
 
