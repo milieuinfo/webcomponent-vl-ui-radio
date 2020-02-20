@@ -7,7 +7,7 @@ services:
       - NODE_MAX_SESSION=3
       - NODE_MAX_INSTANCES=3
   selenium-chrome:
-    image: ${DOCKER_REGISTRY}selenium/node-chrome-debug:3.141.59
+    image: ${DOCKER_REGISTRY}selenium/node-chrome:3.141.59
     depends_on:
       - selenium-hub
     environment:
@@ -17,7 +17,7 @@ services:
       - https_proxy=${https_proxy}
       - no_proxy=${no_proxy},selenium-hub,tests
   selenium-firefox:
-    image: ${DOCKER_REGISTRY}selenium/node-firefox-debug:3.141.59
+    image: ${DOCKER_REGISTRY}selenium/node-firefox:3.141.59
     depends_on:
       - selenium-hub
     environment:

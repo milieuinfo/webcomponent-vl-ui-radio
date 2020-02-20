@@ -25,4 +25,7 @@ describe('vl-radio', async () => {
       await assert.eventually.isTrue(radio2.isChecked());
       await assert.eventually.isFalse(radio3.isChecked());
     });
+
+
+  after(async () => driver.quit());
 });
