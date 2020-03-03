@@ -27,5 +27,4 @@ describe('vl-radio', async () => {
     });
 
 
-  after(async () => driver.quit());
 });

@@ -1,4 +1,4 @@
-import {VlElement, define} from '/node_modules/vl-ui-core/vl-core.js';
+import {VlElement, define} from '/node_modules/vl-ui-core/dist/vl-core.js';
 
 /**
  * VlRadio
@@ -32,7 +32,7 @@ export class VlRadio extends VlElement(HTMLElement) {
   constructor() {
     super(`
             <style>
-                @import '../style.css';
+                @import '/src/style.css';
             </style>
             
             <label class="vl-radio" for="radio">

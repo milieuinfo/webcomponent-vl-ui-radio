@@ -1,6 +1,6 @@
 import '../node_modules/prismjs/prism.js';
 import '../node_modules/prismjs/plugins/line-numbers/prism-line-numbers.js';
-import {VlElement, define} from "../node_modules/vl-ui-core/vl-core.js";
+import {VlElement, define} from "../node_modules/vl-ui-core/dist/vl-core.js";
 
 (() => {
   const id = 'demo-style';
