@@ -2,25 +2,41 @@ const VlRadio = require('../components/vl-radio');
 const { Page, Config } = require('vl-ui-core').Test;
 
 class VlRadioPage extends Page {
-    async _getRadio(selector) {
-        return new VlRadio(this.driver, selector);
-    }
-
-  async getRadio1() {
-    return await this._getRadio('#radio-1');
+  async _getRadio(selector) {
+    return new VlRadio(this.driver, selector);
   }
 
-  async getRadio2() {
-    return await this._getRadio('#radio-2');
+  async _getRadioByType(type, number) {
+    return this._getRadio(`#radio-${type}-${number}`);
   }
 
-  async getRadio3() {
-    return await this._getRadio('#radio-3');
+  async getRadio(number) {
+    return this._getRadio(`#radio-${number}`);
   }
 
-    async load() {
-        await super.load(Config.baseUrl + '/demo/vl-radio.html');
-    }
+  async getBlockRadio(number) {
+    return this._getRadioByType('block', number);
+  }
+
+  async getErrorRadio(number) {
+    return this._getRadioByType('error', number);
+  }
+
+  async getDisabledRadio(number) {
+    return this._getRadioByType('disabled', number);
+  }
+
+  async getSingleRadio(number) {
+    return this._getRadioByType('single', number);
+  }
+
+  async getCheckedRadio(number) {
+    return this._getRadioByType('checked', number);
+  }
+
+  async load() {
+    await super.load(Config.baseUrl + '/demo/vl-radio.html');
+  }
 }
 
 module.exports = VlRadioPage;

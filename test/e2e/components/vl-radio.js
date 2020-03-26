@@ -1,9 +1,10 @@
-const {VlElement} = require('vl-ui-core').Test;
-const {By} = require('vl-ui-core').Test.Setup;
+const { VlElement } = require('vl-ui-core').Test;
+const { By } = require('vl-ui-core').Test.Setup;
 
 class VlRadio extends VlElement {
-  constructor(driver, selector) {
-    super(driver, selector);
+  async click() {
+    const label = await this._getLabel();
+    await label.click();
   }
 
   async isChecked() {
@@ -11,12 +12,28 @@ class VlRadio extends VlElement {
     return this.driver.executeScript('return arguments[0].checked', input);
   }
 
-  async toggle() {
-    return this.driver.executeScript('arguments[0].toggle()', this);
+  async isBlock() {
+    return this.hasAttribute('data-vl-block');
+  }
+
+  async isDisabled() {
+    return this.hasAttribute('disabled');
+  }
+
+  async isSingle() {
+    return this.hasAttribute('data-vl-single');
+  }
+
+  async hasError() {
+    return this.hasAttribute('data-vl-error');
   }
 
   async _getInput() {
     return this.shadowRoot.findElement(By.css("input[type='radio']"));
+  }
+
+  async _getLabel() {
+    return this.shadowRoot.findElement(By.css('.vl-radio__label'));
   }
 }
 

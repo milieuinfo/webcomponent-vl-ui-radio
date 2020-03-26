@@ -1,47 +1,101 @@
 <html>
+
 <head>
   <title>vl-radio voorbeeld</title>
   <script type="module" src="demo.js"></script>
   <script type="module" src="/src/vl-radio.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="/node_modules/vl-ui-core/dist/style.css"/>
+  <link rel="stylesheet" type="text/css" href="/node_modules/vl-ui-core/dist/style.css" />
 </head>
 
-<style>
-  body {
-    padding: 1.5rem !important;
-  }
-
-  div:not(:first-child) {
-    margin-top: 3rem;
-  }
-</style>
-
 <body>
-  <vl-demo-pagina data-vl-title="vl-ui-radio demo" data-vl-link="https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-radio">
-    <template data-vl-title="Radio">
-      <vl-radio label="Ja" value="yes" name="group-0" id="radio-1"></vl-radio>
-      <vl-radio label="Nee" value="no" name="group-0" id="radio-2"></vl-radio>
-      <vl-radio label="Misschien" value="maybe" name="group-0" id="radio-3"></vl-radio>
-    </template>
-    <template data-vl-title="Radio checked">
-      <vl-radio label="Ja" value="yes" name="group-1"></vl-radio>
-      <vl-radio label="Nee" value="no" name="group-1" checked></vl-radio>
-    </template>
-    <template data-vl-title="Radio block">
-      <vl-radio label="Ja" value="yes" name="group-2" block></vl-radio>
-      <vl-radio label="Nee" value="no" name="group-2" block></vl-radio>
-    </template>
-    <template data-vl-title="Radio error">
-      <vl-radio label="Ja" value="yes" name="group-3" error></vl-radio>
-    </template>
-    <template data-vl-title="Radio disabled">
-      <vl-radio label="Ja" value="yes" name="group-4" disabled></vl-radio>
-      <vl-radio label="Nee" value="no" name="group-4" disabled></vl-radio>
-    </template>
-    <template data-vl-title="Radio single">
-      <vl-radio label="Nee" value="no" name="group-5" single></vl-radio>
-    </template>
-  </vl-demo-pagina>
+  <h1>vl-ui-radio demo</h1>
+  <p>
+    <a href="https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-radio">
+      Meer voorbeelden en documentatie</a>.
+  </p>
+
+  <div>
+    <h2>Radio</h2>
+    <pre>
+      <code class="line-numbers language-markup">
+        &lt;vl-radio data-vl-label="Ja" value="yes" name="group-0" id="radio-1"&gt;&lt;/vl-radio&gt;
+        &lt;vl-radio data-vl-label="Nee" value="no" name="group-0" id="radio-2"&gt;&lt;/vl-radio&gt;
+      </code>
+    </pre>
+    <div class="demo">
+      <div>
+        <vl-radio id="radio-1" data-vl-label="Ja" value="yes" name="group-0"></vl-radio>
+        <vl-radio id="radio-2" data-vl-label="Nee" value="no" name="group-0"></vl-radio>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <h2>Radio block</h2>
+    <pre>
+      <code class="line-numbers language-markup">
+        &lt;vl-radio data-vl-label="Ja" value="yes" name="group-2" data-vl-block&gt;&lt;/vl-radio&gt;
+        &lt;vl-radio data-vl-label="Nee" value="no" name="group-2" data-vl-block&gt;&lt;/vl-radio&gt;
+      </code>
+    </pre>
+    <div class="demo">
+      <vl-radio id="radio-block-1" data-vl-label="Ja" value="yes" name="group-2" data-vl-block></vl-radio>
+      <vl-radio id="radio-block-2" data-vl-label="Nee" value="no" name="group-2" data-vl-block></vl-radio>
+    </div>
+  </div>
+
+  <div>
+    <h2>Radio error</h2>
+    <pre>
+      <code class="line-numbers language-markup">
+        &lt;vl-radio data-vl-label="Ja" value="yes" name="group-3" data-vl-error&gt;&lt;/vl-radio&gt;
+      </code>
+    </pre>
+    <div class="demo">
+      <vl-radio id="radio-error-1" data-vl-label="Ja" value="yes" name="group-3" data-vl-error></vl-radio>
+    </div>
+  </div>
+
+  <div>
+    <h2>Radio disabled</h2>
+    <pre>
+      <code class="line-numbers language-markup">
+        &lt;vl-radio data-vl-label="Ja" value="yes" name="group-4" disabled&gt;&lt;/vl-radio&gt;
+        &lt;vl-radio data-vl-label="Nee" value="no" name="group-4" disabled&gt;&lt;/vl-radio&gt;
+      </code>
+    </pre>
+    <div class="demo">
+      <vl-radio id="radio-disabled-1" data-vl-label="Ja" value="yes" name="group-4" disabled></vl-radio>
+      <vl-radio data-vl-label="Nee" value="no" name="group-4" disabled></vl-radio>
+    </div>
+  </div>
+
+  <div>
+    <h2>Radio single</h2>
+    <pre>
+      <code class="line-numbers language-markup">
+        &lt;vl-radio data-vl-label="Nee" value="no" name="group-5" data-vl-single&gt;&lt;/vl-radio&gt;
+      </code>
+    </pre>
+    <div class="demo">
+      <vl-radio id="radio-single-1" data-vl-label="Nee" value="no" name="group-5" data-vl-single></vl-radio>
+    </div>
+
+    <div>
+      <h2>Radio checked</h2>
+      <pre>
+        <code class="line-numbers language-markup">
+          &lt;vl-radio data-vl-label="Ja" value="yes" name="group-1"&gt;&lt;/vl-radio&gt;
+          &lt;vl-radio data-vl-label="Nee" value="no" name="group-1" checked&gt;&lt;/vl-radio&gt;
+        </code>
+      </pre>
+      <div class="demo">
+        <div>
+          <vl-radio id="radio-checked-1" data-vl-label="Ja" value="yes" name="group-1"></vl-radio>
+          <vl-radio id="radio-checked-2" data-vl-label="Nee" value="no" name="group-1" checked></vl-radio>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
-</html>

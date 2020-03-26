@@ -1,3 +1,5 @@
 module.exports = { 
-    'VlRadio': require('./test/e2e/components/vl-radio')
+    Test: {
+        VlRadio: require('./test/e2e/components/vl-radio')
+    }
 };
