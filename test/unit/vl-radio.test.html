@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script src="../../node_modules/web-component-tester/browser.js"></script>
+
+  <script type="module" src="../../src/vl-radio.js"></script>
+</head>
+
+<body>
+  <test-fixture id="vl-radio-fixture">
+    <template>
+      <vl-radio></vl-radio>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="vl-radios-fixture">
+    <template>
+      <vl-radio value="1" name="test"></vl-radio>
+      <vl-radio value="2" name="test"></vl-radio>
+      <vl-radio value="3" name="test"></vl-radio>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('<vl-radio>', () => {
+      const should = chai.should();
+
+      test('krijgt de juiste class wanneer de knop een attribuut bevat', () => {
+        const radio = fixture('vl-radio-fixture');
+        const radioLabel = radio.shadowRoot.querySelector('.vl-radio');
+        ['data-vl-block', 'data-vl-single', 'disabled', 'data-vl-error'].forEach((attribuut) => {
+          assert.isFalse(radioLabel.classList.contains('vl-radio--' + attribuut));
+          radio.setAttribute(attribuut, '');
+          assert.isTrue(radioLabel.classList.contains('vl-radio--' + attribuut));
+          radio.removeAttribute(attribuut);
+          assert.isFalse(radioLabel.classList.contains('vl-radio--' + attribuut));
+        });
+      });
+
+      test('zet het value attribuut op de input radio', () => {
+        const radio = fixture('vl-radio-fixture');
+        const value = 'de value';
+        radio.setAttribute('value', value);
+        assert.equal(radio._inputElement.value, value);
+      });
+
+      test('zet het checked en disabled attribuut op de input radio', () => {
+        ['checked', 'disabled'].forEach((attribute) => {
+          const radio = fixture('vl-radio-fixture');
+          assert.isFalse(radio._inputElement[attribute]);
+          radio.setAttribute(attribute, true);
+          assert.isTrue(radio._inputElement[attribute]);
+          radio.setAttribute(attribute, false);
+          assert.isTrue(radio._inputElement[attribute]);
+          radio.setAttribute(attribute, '');
+          assert.isTrue(radio._inputElement[attribute]);
+          radio.removeAttribute(attribute);
+          assert.isFalse(radio._inputElement[attribute]);
+        });
+      });
+
+      test('zal de label verbergen wanneer de radio het single attribuut bevat', () => {
+        debugger;
+        const radio = fixture('vl-radio-fixture');
+        assert.isFalse(radio._labelText.classList.contains('vl-u-visually-hidden'));
+        radio.setAttribute('single', true);
+        assert.isTrue(radio._labelText.classList.contains('vl-u-visually-hidden'));
+        radio.setAttribute('single', false);
+        assert.isTrue(radio._labelText.classList.contains('vl-u-visually-hidden'));
+        radio.setAttribute('single', '');
+        assert.isTrue(radio._labelText.classList.contains('vl-u-visually-hidden'));
+        radio.removeAttribute('single');
+        assert.isFalse(radio._labelText.classList.contains('vl-u-visually-hidden'));
+      });
+
+      test('het klikken op het input veld zal de radio checked waarde niet meer aanpassen bij een radio met een boolean checked attribuut', () => {
+        const radio = fixture('vl-radio-fixture');
+        assert.isFalse(radio._inputElement.checked);
+        radio._inputElement.click();
+        assert.isTrue(radio._inputElement.checked);
+        radio._inputElement.click();
+        assert.isTrue(radio._inputElement.checked);
+      });
+
+      test('check zal de checked waarde aanpassen bij een radio met een boolean checked attribuut, behalve als die al checked was', () => {
+        const radio = fixture('vl-radio-fixture');
+        assert.isFalse(radio._inputElement.checked);
+        radio.check();
+        assert.isTrue(radio._inputElement.checked);
+        radio.check();
+        assert.isTrue(radio._inputElement.checked);
+      });
+
+      test('het klikken op het input veld zal een event gooien met de waarde van het boolean checked attribuut', (done) => {
+        const radio = fixture('vl-radio-fixture');
+        radio._inputElement.addEventListener('input', (e) => {
+          assert.isTrue(e.srcElement.checked);
+          done();
+        });
+        radio._inputElement.click();
+      });
+
+      test('check zal een event gooien met de waarde van het boolean checked attribuut', (done) => {
+        const radio = fixture('vl-radio-fixture');
+        radio._inputElement.addEventListener('input', (e) => {
+          assert.isTrue(e.srcElement.checked);
+          done();
+        });
+        radio.check();
+      });
+
+      test('bij het klikken op het input veld zal slechts één input event doorgestuurd worden', (done) => {
+        const radios = fixture('vl-radios-fixture');
+        const radio = radios[0];
+        let counter = 0;
+        radio._inputElement.addEventListener('input', (e) => {
+          counter++;
+          if (e.srcElement.checked) {
+            setTimeout(() => {
+              assert.equal(counter, 1);
+              done();
+            });
+          }
+        });
+        radio._inputElement.click();
+      });
+
+      test('het klikken op het input veld zal het origineel change event doorsturen', (done) => {
+        const radios = fixture('vl-radios-fixture');
+        const radio = radios[0];
+        radio._inputElement.addEventListener('change', (e) => {
+          done();
+        });
+        radio._inputElement.click();
+      });
+
+      test('het klikken op een radio en daarna een andere zal de originele terug afzetten', () => {
+        const radios = fixture('vl-radios-fixture');
+        const radio1 = radios[0];
+        const radio2 = radios[1];
+        const radio3 = radios[2];
+        assert.isFalse(radio1.checked);
+        assert.isFalse(radio2.checked);
+        assert.isFalse(radio3.checked);
+        radio1.check();
+        assert.isTrue(radio1.checked);
+        assert.isFalse(radio2.checked);
+        assert.isFalse(radio3.checked);
+        radio2.check();
+        assert.isFalse(radio1.checked);
+        assert.isTrue(radio2.checked);
+        assert.isFalse(radio3.checked);
+      });
+    });
+  </script>
+</body>
+
+</html>
