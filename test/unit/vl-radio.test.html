@@ -63,7 +63,6 @@
       });
 
       test('zal de label verbergen wanneer de radio het single attribuut bevat', () => {
-        debugger;
         const radio = fixture('vl-radio-fixture');
         assert.isFalse(radio._labelText.classList.contains('vl-u-visually-hidden'));
         radio.setAttribute('single', true);
