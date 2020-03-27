@@ -34,6 +34,10 @@ class VlRadioPage extends Page {
     return this._getRadioByType('checked', number);
   }
 
+  async getSlotLabelRadio(number) {
+    return this._getRadioByType('slot-label', number);
+  }
+
   async load() {
     await super.load(Config.baseUrl + '/demo/vl-radio.html');
   }

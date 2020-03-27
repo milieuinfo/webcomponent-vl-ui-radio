@@ -17,7 +17,7 @@ class VlRadio extends VlElement {
   }
 
   async isDisabled() {
-    return this.hasAttribute('disabled');
+    return this.hasAttribute('data-vl-disabled');
   }
 
   async isSingle() {
@@ -26,6 +26,16 @@ class VlRadio extends VlElement {
 
   async hasError() {
     return this.hasAttribute('data-vl-error');
+  }
+
+  async getText() {
+    const label = await this._getLabel();
+    return label.getText();
+  }
+
+  async labelSlotElements() {
+    const slot = await this.shadowRoot.findElement(By.css("slot"));
+    return this.getAssignedElements(slot);
   }
 
   async _getInput() {
