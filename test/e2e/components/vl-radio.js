@@ -17,7 +17,7 @@ class VlRadio extends VlElement {
   }
 
   async isDisabled() {
-    return this.hasAttribute('disabled');
+    return this.hasAttribute('data-vl-disabled');
   }
 
   async isSingle() {

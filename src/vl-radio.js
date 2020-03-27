@@ -6,15 +6,15 @@ import { VlElement, define } from '/node_modules/vl-ui-core/dist/vl-core.js';
  * @classdesc De radio laat de gebruiker toe om een enkele optie te selecteren uit een lijst. Gebruik de radio in formulieren. Vermijd een voorgedefinieerde keuze vast te leggen om de gebruiker een bewuste keuze te laten maken.
  *
  * @extends VlElement
- *
- * @property {boolean} checked - Attribuut wordt gebruikt om de radio standaard te selecteren.
- * @property {boolean} disabled - Attribuut wordt gebruikt om te voorkomen dat de gebruiker de radio kan selecteren.
- * @property {boolean} name - Attribuut wordt gebruikt om verschillende sibling radio's te groeperen zodat er maar één in die groep geselecteerd kan worden.
- * @property {boolean} value - Attribuut wordt gebruikt om de radio waarde te bepalen.
+ * 
  * @property {boolean} data-vl-block - Attribuut wordt gebruikt om ervoor te zorgen dat de radio getoond wordt als een block element en bijgevolg de breedte van de parent zal aannemen.
+ * @property {boolean} data-vl-checked - Attribuut wordt gebruikt om de radio standaard te selecteren.
+ * @property {boolean} data-vl-disabled - Attribuut wordt gebruikt om te voorkomen dat de gebruiker de radio kan selecteren.
  * @property {boolean} data-vl-error - Attribuut wordt gebruikt om aan te duiden dat de radio een fout bevat.
  * @property {boolean} data-vl-label - Attribuut wordt gebruikt om de label tekst te bepalen.
+ * @property {boolean} data-vl-name - Attribuut wordt gebruikt om verschillende sibling radio's te groeperen zodat er maar één in die groep geselecteerd kan worden.
  * @property {boolean} data-vl-single - Attribuut wordt gebruikt om alleen een radio te tonen zonder label.
+ * @property {boolean} data-vl-value - Attribuut wordt gebruikt om de radio waarde te bepalen.
  *
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-radio/releases/latest|Release notes}
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-radio/issues|Issues}
@@ -36,9 +36,11 @@ export class VlRadio extends VlElement(HTMLElement) {
       </style>
       
       <label class="vl-radio" for="radio">
-        <input class="vl-radio__toggle" type="radio" id="radio" name="radio"/>
+        <input class="vl-radio__toggle" type="radio" id="radio" data-vl-name="radio"/>
         <div class="vl-radio__label">
-          <span id="label-text"></span>
+          <span id="label-text">
+            <slot></slot>
+          </span>
         </div>
       </label>
     `);
@@ -66,7 +68,7 @@ export class VlRadio extends VlElement(HTMLElement) {
 
   _check() {
     const host = this.getRootNode().host;
-    const radios = host.parentElement.querySelectorAll(`vl-radio[name='${this.name}']`);
+    const radios = host.getRootNode().querySelectorAll(`vl-radio[data-vl-name='${this.name}']`);
     [...radios]
       .filter(radio => radio.checked)
       .filter(radio => radio !== host)
