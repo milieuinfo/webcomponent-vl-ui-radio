@@ -8,6 +8,14 @@ describe('vl-radio', async () => {
     return vlRadioPage.load();
   });
 
+  it('als gebruiker kan ik het radio label zien', async () => {
+    const radio = await vlRadioPage.getCheckedRadio(1);
+    const slotLabelRadio = await vlRadioPage.getSlotLabelRadio(1);
+    const slotLabels = await slotLabelRadio.labelSlotElements();
+    await assert.eventually.equal(radio.getText(), 'Ja');
+    await assert.eventually.equal(slotLabels[0].getText(), 'Ja');
+  });
+
   it('als gebruiker kan ik maar 1 radio tegelijkertijd aanvinken', async () => {
     const radio1 = await vlRadioPage.getRadio(1);
     const radio2 = await vlRadioPage.getRadio(2);

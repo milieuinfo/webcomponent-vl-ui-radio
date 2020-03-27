@@ -28,6 +28,16 @@ class VlRadio extends VlElement {
     return this.hasAttribute('data-vl-error');
   }
 
+  async getText() {
+    const label = await this._getLabel();
+    return label.getText();
+  }
+
+  async labelSlotElements() {
+    const slot = await this.shadowRoot.findElement(By.css("slot"));
+    return this.getAssignedElements(slot);
+  }
+
   async _getInput() {
     return this.shadowRoot.findElement(By.css("input[type='radio']"));
   }
