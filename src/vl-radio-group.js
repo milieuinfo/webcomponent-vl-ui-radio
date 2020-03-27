@@ -13,18 +13,13 @@ import { VlElement, define } from '/node_modules/vl-ui-core/dist/vl-core.js';
  */
 export class VlRadioGroup extends VlElement(HTMLElement) {
   connectedCallback() {
-    const random = this._randomString;
     this.radios.forEach((radio) => {
-      radio.setAttribute('data-vl-name', `radio-${random}`);
+      radio.setAttribute('data-vl-name', 'radio');
     });
   }
 
   get radios() {
     return this.querySelectorAll('vl-radio');
-  }
-
-  get _randomString() {
-    return Math.floor((Math.random()) * 1000000000).toString(16);
   }
 }
 
