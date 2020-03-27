@@ -138,15 +138,6 @@
         assert.isTrue(radio._inputElement.checked);
       });
 
-      test('het klikken op het input veld zal een event gooien met de waarde van het boolean checked attribuut', (done) => {
-        const radio = fixture('vl-radio-fixture');
-        radio._inputElement.addEventListener('input', (e) => {
-          assert.isTrue(e.target.checked);
-          done();
-        });
-        radio._inputElement.click();
-      });
-
       test('check zal een event gooien met de waarde van het boolean checked attribuut', (done) => {
         const radio = fixture('vl-radio-fixture');
         radio._inputElement.addEventListener('input', (e) => {
