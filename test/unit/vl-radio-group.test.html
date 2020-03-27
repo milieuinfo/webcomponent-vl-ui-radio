@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script src="../../node_modules/web-component-tester/browser.js"></script>
+
+  <script type="module" src="../../src/vl-radio-group.js"></script>
+  <script type="module" src="../../src/vl-radio.js"></script>
+</head>
+
+<body>
+  <test-fixture id="vl-radio-group-fixture">
+    <template>
+      <vl-radio-group>
+        <vl-radio data-vl-value="1" data-vl-name="test"></vl-radio>
+        <vl-radio data-vl-value="2" data-vl-name="test"></vl-radio>
+        <vl-radio data-vl-value="3" data-vl-name="test"></vl-radio>
+      </vl-radio-group>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('<vl-radio-group>', () => {
+      const should = chai.should();
+
+      test('geeft een unieke naam aan de radio child elementen', () => {
+        const radioGroup = fixture('vl-radio-group-fixture');
+        const radios = radioGroup.querySelectorAll('vl-radio');
+        assert.isDefined(radios[0].getAttribute('data-vl-name'));
+        assert.equal(radios[0].getAttribute('data-vl-name'), radios[1].getAttribute('data-vl-name'));
+        assert.equal(radios[0].getAttribute('data-vl-name'), radios[2].getAttribute('data-vl-name'));
+      });
+    });
+  </script>
+</body>
+
+</html>
