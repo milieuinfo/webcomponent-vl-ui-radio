@@ -68,7 +68,9 @@ export class VlRadio extends VlElement(HTMLElement) {
 
   _check() {
     const host = this.getRootNode().host;
-    const radios = host.getRootNode().querySelectorAll(`vl-radio[data-vl-name='${this.name}']`);
+    const isSlot = host.assignedSlot != undefined;
+    const rootNode = isSlot ? host.closest('vl-radio-group') : host.getRootNode();
+    const radios = rootNode.querySelectorAll(`vl-radio[data-vl-name='${this.name}']`);
     [...radios]
       .filter(radio => radio.checked)
       .filter(radio => radio !== host)

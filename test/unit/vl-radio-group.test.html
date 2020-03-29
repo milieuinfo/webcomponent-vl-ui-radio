@@ -21,16 +21,51 @@
     </template>
   </test-fixture>
 
+  <test-fixture id="vl-radio-groups-fixture">
+    <template>
+      <vl-radio-group>
+        <vl-radio data-vl-value="1" data-vl-name="test"></vl-radio>
+        <vl-radio data-vl-value="2" data-vl-name="test"></vl-radio>
+      </vl-radio-group>
+      <vl-radio-group>
+        <vl-radio data-vl-value="1" data-vl-name="test"></vl-radio>
+        <vl-radio data-vl-value="2" data-vl-name="test"></vl-radio>
+      </vl-radio-group>
+    </template>
+  </test-fixture>
+
   <script>
     suite('<vl-radio-group>', () => {
       const should = chai.should();
 
-      test('geeft een unieke naam aan de radio child elementen', () => {
+      test('zet het data-vl-name attribuut bij de radio child elementen', () => {
         const radioGroup = fixture('vl-radio-group-fixture');
         const radios = radioGroup.querySelectorAll('vl-radio');
         assert.isDefined(radios[0].getAttribute('data-vl-name'));
         assert.equal(radios[0].getAttribute('data-vl-name'), radios[1].getAttribute('data-vl-name'));
         assert.equal(radios[0].getAttribute('data-vl-name'), radios[2].getAttribute('data-vl-name'));
+      });
+
+      test('zal alleen voorkomen dat er meerdere radio elementen aangeduid worden binnen de groep', () => {
+        const radioGroups = fixture('vl-radio-groups-fixture');
+        const radioGroup1 = radioGroups[0];
+        const radioGroup2 = radioGroups[1];
+        const radiosGroup1 = radioGroup1.querySelectorAll('vl-radio');
+        const radiosGroup2 = radioGroup2.querySelectorAll('vl-radio');
+        assert.isFalse(radiosGroup1[0].checked);
+        assert.isFalse(radiosGroup1[1].checked);
+        assert.isFalse(radiosGroup2[0].checked);
+        assert.isFalse(radiosGroup2[1].checked);
+        radiosGroup1[0].check();
+        assert.isTrue(radiosGroup1[0].checked);
+        assert.isFalse(radiosGroup1[1].checked);
+        assert.isFalse(radiosGroup2[0].checked);
+        assert.isFalse(radiosGroup2[1].checked);
+        radiosGroup2[0].check();
+        assert.isTrue(radiosGroup1[0].checked);
+        assert.isFalse(radiosGroup1[1].checked);
+        assert.isTrue(radiosGroup2[0].checked);
+        assert.isFalse(radiosGroup2[1].checked);
       });
     });
   </script>

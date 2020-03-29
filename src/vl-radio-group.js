@@ -12,6 +12,12 @@ import { VlElement, define } from '/node_modules/vl-ui-core/dist/vl-core.js';
  * @see {@link https://webcomponenten.omgeving.vlaanderen.be/demo/vl-radio-group.html|Demo}
  */
 export class VlRadioGroup extends VlElement(HTMLElement) {
+  constructor() {
+    super(`
+      <slot></slot>
+    `);
+  }
+
   connectedCallback() {
     this.radios.forEach((radio) => {
       radio.setAttribute('data-vl-name', 'radio');
