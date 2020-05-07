@@ -52,6 +52,6 @@
   "devDependencies": {
     "@govflanders/vl-ui-radio": "3.9.1",
     "@govflanders/vl-ui-util": "3.9.2",
-    "vl-ui-util": "5.1.9"
+    "vl-ui-util": "^5.1.9"
   }
 }
