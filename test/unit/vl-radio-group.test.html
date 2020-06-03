@@ -36,8 +36,6 @@
 
   <script>
     suite('<vl-radio-group>', () => {
-      const should = chai.should();
-
       test('zet het data-vl-name attribuut bij de radio child elementen', () => {
         const radioGroup = fixture('vl-radio-group-fixture');
         const radios = radioGroup.querySelectorAll('vl-radio');

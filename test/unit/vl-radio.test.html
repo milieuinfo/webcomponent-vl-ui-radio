@@ -50,8 +50,6 @@
 
   <script>
     suite('<vl-radio>', () => {
-      const should = chai.should();
-
       test('krijgt de juiste class wanneer de knop een attribuut bevat', () => {
         const radio = fixture('vl-radio-fixture');
         const radioLabel = radio.shadowRoot.querySelector('.vl-radio');
@@ -175,7 +173,7 @@
       });
 
       test('het klikken op een radio en daarna een andere zal de originele terug afzetten', () => {
-        [fixture('vl-radios-fixture'), fixture('vl-radios-with-different-parents-fixture')].forEach(fixture => {
+        [fixture('vl-radios-fixture'), fixture('vl-radios-with-different-parents-fixture')].forEach((fixture) => {
           const radios = fixture.querySelectorAll('vl-radio');
           const radio1 = radios[0];
           const radio2 = radios[1];

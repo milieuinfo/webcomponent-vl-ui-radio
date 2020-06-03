@@ -1,12 +1,13 @@
-import { VlElement, define } from '/node_modules/vl-ui-core/dist/vl-core.js';
+import {vlElement, define} from '/node_modules/vl-ui-core/dist/vl-core.js';
 
 /**
  * VlRadio
  * @class
  * @classdesc De radio laat de gebruiker toe om een enkele optie te selecteren uit een lijst. Gebruik de radio in formulieren. Vermijd een voorgedefinieerde keuze vast te leggen om de gebruiker een bewuste keuze te laten maken.
  *
- * @extends VlElement
- * 
+ * @extends HTMLElement
+ * @mixin vlElement
+ *
  * @property {boolean} data-vl-block - Attribuut wordt gebruikt om ervoor te zorgen dat de radio getoond wordt als een block element en bijgevolg de breedte van de parent zal aannemen.
  * @property {boolean} data-vl-checked - Attribuut wordt gebruikt om de radio standaard te selecteren.
  * @property {boolean} data-vl-disabled - Attribuut wordt gebruikt om te voorkomen dat de gebruiker de radio kan selecteren.
@@ -20,7 +21,7 @@ import { VlElement, define } from '/node_modules/vl-ui-core/dist/vl-core.js';
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-radio/issues|Issues}
  * @see {@link https://webcomponenten.omgeving.vlaanderen.be/demo/vl-radio.html|Demo}
  */
-export class VlRadio extends VlElement(HTMLElement) {
+export class VlRadio extends vlElement(HTMLElement) {
   static get _observedAttributes() {
     return ['label', 'name', 'value', 'checked'];
   }
@@ -72,9 +73,9 @@ export class VlRadio extends VlElement(HTMLElement) {
     const rootNode = isSlot ? host.closest('vl-radio-group') : host.getRootNode();
     const radios = rootNode.querySelectorAll(`vl-radio[data-vl-name='${this.name}']`);
     [...radios]
-      .filter(radio => radio.checked)
-      .filter(radio => radio !== host)
-      .forEach(radio => radio.checked = false);
+        .filter((radio) => radio.checked)
+        .filter((radio) => radio !== host)
+        .forEach((radio) => radio.checked = false);
   }
 
   _labelChangedCallback(oldValue, newValue) {

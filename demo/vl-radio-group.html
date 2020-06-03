@@ -1,36 +1,23 @@
 <html>
 
 <head>
-  <title>vl-radio voorbeeld</title>
-  <script type="module" src="demo.js"></script>
-  <script type="module" src="/src/vl-radio.js"></script>
-  <script type="module" src="/src/vl-radio-group.js"></script>
+    <title>vl-radio voorbeeld</title>
+    <script type="module" src="/node_modules/vl-ui-demo/dist/vl-demo-all.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="/node_modules/vl-ui-core/dist/style.css" />
+    <script type="module" src="/src/vl-radio.js"></script>
+    <script type="module" src="/src/vl-radio-group.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/node_modules/vl-ui-core/dist/style.css" />
 </head>
 
 <body>
-  <h1>vl-ui-radio-group demo</h1>
-  <p>
-    <a href="https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-radio">
-      Meer voorbeelden en documentatie</a>.
-  </p>
-
-  <div>
-    <h2>Radio group</h2>
-    <pre>
-      <code class="line-numbers language-markup">
-        &lt;vl-radio-group&gt;
-          &lt;vl-radio id="radio-1" data-vl-label="Ja" data-vl-value="yes"&gt;&lt;/vl-radio&gt;
-          &lt;vl-radio id="radio-2" data-vl-label="Nee" data-vl-value="no"&gt;&lt;/vl-radio&gt;
-        &lt;/vl-radio-group&gt;
-      </code>
-    </pre>
-    <div class="demo">
-      <vl-radio-group>
-        <vl-radio id="radio-1" data-vl-label="Ja" data-vl-value="yes"></vl-radio>
-        <vl-radio id="radio-2" data-vl-label="Nee" data-vl-value="no"></vl-radio>
-      </vl-radio-group>
-    </div>
-  </div>
+    <vl-demo-page data-vl-webcomponent="vl-radio-group"
+        data-vl-link="https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-radio">
+        <vl-demo data-vl-title="Radio group">
+            <vl-radio-group>
+                <vl-radio id="radio-1" data-vl-label="Ja" data-vl-value="yes"></vl-radio>
+                <vl-radio id="radio-2" data-vl-label="Nee" data-vl-value="no"></vl-radio>
+            </vl-radio-group>
+        </vl-demo>
+    </vl-demo-page>
 </body>
