@@ -1,6 +1,6 @@
 {
   "name": "vl-ui-radio",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A radio button allows a user to select a single option from a list. Avoid preselecting a radio button because it is important for the user to make a conscious selection.",
   "author": "DIDM",
   "license": "MIT",
