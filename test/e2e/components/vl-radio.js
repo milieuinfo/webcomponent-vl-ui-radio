@@ -1,5 +1,5 @@
-const { VlElement } = require('vl-ui-core').Test;
-const { By } = require('vl-ui-core').Test.Setup;
+const {VlElement} = require('vl-ui-core').Test;
+const {By} = require('vl-ui-core').Test.Setup;
 
 class VlRadio extends VlElement {
   async click() {
@@ -34,12 +34,12 @@ class VlRadio extends VlElement {
   }
 
   async labelSlotElements() {
-    const slot = await this.shadowRoot.findElement(By.css("slot"));
+    const slot = await this.shadowRoot.findElement(By.css('slot'));
     return this.getAssignedElements(slot);
   }
 
   async _getInput() {
-    return this.shadowRoot.findElement(By.css("input[type='radio']"));
+    return this.shadowRoot.findElement(By.css('input[type=\'radio\']'));
   }
 
   async _getLabel() {

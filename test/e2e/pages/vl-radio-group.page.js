@@ -1,5 +1,5 @@
 const VlRadio = require('../components/vl-radio');
-const { Page, Config } = require('vl-ui-core').Test;
+const {Page, Config} = require('vl-ui-core').Test;
 
 class VlRadioPage extends Page {
   async _getRadio(selector) {

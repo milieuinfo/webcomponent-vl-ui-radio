@@ -1,4 +1,4 @@
-const { assert, driver } = require('vl-ui-core').Test.Setup;
+const {assert, driver} = require('vl-ui-core').Test.Setup;
 const VlRadioGroupPage = require('./pages/vl-radio-group.page');
 
 describe('vl-radio-group', async () => {
