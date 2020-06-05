@@ -4,8 +4,8 @@ const VlRadioPage = require('./pages/vl-radio.page');
 describe('vl-radio', async () => {
   const vlRadioPage = new VlRadioPage(driver);
 
-  before(() => {
-    return vlRadioPage.load();
+  before(async () => {
+    await vlRadioPage.load();
   });
 
   it('als gebruiker kan ik het radio label zien', async () => {
