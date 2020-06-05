@@ -4,7 +4,7 @@ const VlRadioPage = require('./pages/vl-radio.page');
 describe('vl-radio', async () => {
   const vlRadioPage = new VlRadioPage(driver);
 
-  before(async () => {
+  beforeEach(async () => {
     await vlRadioPage.load();
   });
 
