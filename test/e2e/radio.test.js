@@ -5,7 +5,7 @@ describe('vl-radio', async () => {
   const vlRadioPage = new VlRadioPage(driver);
 
   beforeEach(async () => {
-    await vlRadioPage.load();
+    return await vlRadioPage.load();
   });
 
   it('als gebruiker kan ik het radio label zien', async () => {

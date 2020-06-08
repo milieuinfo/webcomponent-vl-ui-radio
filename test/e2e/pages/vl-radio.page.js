@@ -45,7 +45,7 @@ class VlRadioPage extends Page {
     const header = await new VlHeader(this.driver);
     const footer = await new VlFooter(this.driver);
     await header.remove();
-    await footer.remove();
+    return await footer.remove();
   }
 }
 

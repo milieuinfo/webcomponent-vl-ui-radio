@@ -5,7 +5,7 @@ describe('vl-radio-group', async () => {
   const vlRadioGroupPage = new VlRadioGroupPage(driver);
 
   beforeEach(async () => {
-    await vlRadioGroupPage.load();
+    return await vlRadioGroupPage.load();
   });
 
   it('als gebruiker kan ik maar 1 radio tegelijkertijd aanvinken', async () => {
