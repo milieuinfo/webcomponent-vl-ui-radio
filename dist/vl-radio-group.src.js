@@ -1,17 +1,18 @@
-import { VlElement, define } from 'vl-ui-core';
+import {vlElement, define} from 'vl-ui-core';
 
 /**
  * VlRadioGroup
  * @class
  * @classdesc De radio group bundelt verschillende radio elementen die samenhoren.
  *
- * @extends VlElement
- * 
+ * @extends HTMLElement
+ * @mixin vlElement
+ *
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-radio/releases/latest|Release notes}
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-radio/issues|Issues}
  * @see {@link https://webcomponenten.omgeving.vlaanderen.be/demo/vl-radio-group.html|Demo}
  */
-export class VlRadioGroup extends VlElement(HTMLElement) {
+export class VlRadioGroup extends vlElement(HTMLElement) {
   constructor() {
     super(`
       <slot></slot>
