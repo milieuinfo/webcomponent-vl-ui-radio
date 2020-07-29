@@ -65,6 +65,12 @@
         assert.isTrue(radiosGroup2[0].checked);
         assert.isFalse(radiosGroup2[1].checked);
       });
+
+      test('de focus zal doorgedelegeerd worden naar het eerste optie element binnen de groep', (done) => {
+        const radioGroup = fixture('vl-radio-group-fixture');
+        radioGroup.radios[0].addEventListener('focus', () => done());
+        radioGroup.focus();
+      });
     });
   </script>
 </body>

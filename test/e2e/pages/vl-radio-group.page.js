@@ -1,17 +1,17 @@
-const VlRadio = require('../components/vl-radio');
 const {Page, Config} = require('vl-ui-core').Test;
+const VlRadioGroup = require('../components/vl-radio-group');
 
 class VlRadioPage extends Page {
-  async _getRadio(selector) {
-    return new VlRadio(this.driver, selector);
-  }
-
-  async getRadio(number) {
-    return this._getRadio(`#radio-${number}`);
+  async getRadioGroup(number) {
+    return this._getRadioGroup(`#radio-group-${number}`);
   }
 
   async load() {
     await super.load(Config.baseUrl + '/demo/vl-radio-group.html');
+  }
+
+  async _getRadioGroup(selector) {
+    return new VlRadioGroup(this.driver, selector);
   }
 }
 
