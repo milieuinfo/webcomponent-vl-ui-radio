@@ -13,12 +13,13 @@ describe('vl-radio-group', async () => {
     const radioGroup = await vlRadioGroupPage.getRadioGroup(1);
     const radio1 = await radioGroup.getRadio(1);
     const radio2 = await radioGroup.getRadio(2);
-
     await assert.eventually.isFalse(radio1.isChecked());
     await assert.eventually.isFalse(radio2.isChecked());
+
     await radio1.click();
     await assert.eventually.isTrue(radio1.isChecked());
     await assert.eventually.isFalse(radio2.isChecked());
+
     await radio2.click();
     await assert.eventually.isFalse(radio1.isChecked());
     await assert.eventually.isTrue(radio2.isChecked());
@@ -147,5 +148,73 @@ describe('vl-radio-group', async () => {
       await assert.eventually.isFalse(radioGroup2Radio1.hasFocus());
       await assert.eventually.isFalse(radioGroup2Radio2.hasFocus());
     }
+  });
+
+  it('als gebruiker kan ik een radio aanvinken door gebruik te maken van de pijl toetsen', async () => {
+    const html = await driver.findElement(By.css('html'));
+    const radioGroup = await vlRadioGroupPage.getRadioGroup(1);
+    const radio1 = await radioGroup.getRadio(1);
+    const radio2 = await radioGroup.getRadio(2);
+    await assert.eventually.isFalse(radio1.isChecked());
+    await assert.eventually.isFalse(radio2.isChecked());
+
+    if (Config.browserName == 'chrome') {
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+    } else {
+      await html.sendKeys(Key.TAB);
+    }
+
+    radio1.sendKeys(Key.RIGHT);
+    await assert.eventually.isFalse(radio1.isChecked());
+    await assert.eventually.isTrue(radio2.isChecked());
+
+    radio2.sendKeys(Key.LEFT);
+    await assert.eventually.isTrue(radio1.isChecked());
+    await assert.eventually.isFalse(radio2.isChecked());
+
+    radio1.sendKeys(Key.UP);
+    await assert.eventually.isFalse(radio1.isChecked());
+    await assert.eventually.isTrue(radio2.isChecked());
+
+    radio2.sendKeys(Key.DOWN);
+    await assert.eventually.isTrue(radio1.isChecked());
+    await assert.eventually.isFalse(radio2.isChecked());
+  });
+
+  it('als gebruiker kan ik door gebruik te maken van de pijl toetsen van de laatste radio naar de eerste gaan en omgekeerd', async () => {
+    const html = await driver.findElement(By.css('html'));
+    const radioGroup = await vlRadioGroupPage.getRadioGroup(1);
+    const radio1 = await radioGroup.getRadio(1);
+    const radio2 = await radioGroup.getRadio(2);
+    await assert.eventually.isFalse(radio1.isChecked());
+    await assert.eventually.isFalse(radio2.isChecked());
+
+    if (Config.browserName == 'chrome') {
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+    } else {
+      await html.sendKeys(Key.TAB);
+    }
+
+    radio1.sendKeys(Key.RIGHT);
+    await assert.eventually.isFalse(radio1.isChecked());
+    await assert.eventually.isTrue(radio2.isChecked());
+
+    radio2.sendKeys(Key.RIGHT);
+    await assert.eventually.isTrue(radio1.isChecked());
+    await assert.eventually.isFalse(radio2.isChecked());
+
+    radio1.sendKeys(Key.UP);
+    await assert.eventually.isFalse(radio1.isChecked());
+    await assert.eventually.isTrue(radio2.isChecked());
+
+    radio2.sendKeys(Key.UP);
+    await assert.eventually.isTrue(radio1.isChecked());
+    await assert.eventually.isFalse(radio2.isChecked());
   });
 });

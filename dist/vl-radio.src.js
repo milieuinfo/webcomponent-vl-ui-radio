@@ -64,7 +64,12 @@ export class VlRadio extends vlElement(HTMLElement) {
   }
 
   check() {
+    this.focus();
     this._inputElement.click();
+  }
+
+  focus() {
+    this._inputElement.focus();
   }
 
   _check() {

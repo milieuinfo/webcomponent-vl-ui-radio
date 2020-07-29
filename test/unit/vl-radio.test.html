@@ -145,6 +145,12 @@
         radio.check();
       });
 
+      test('check zal focus geven aan de nieuw geselecteerde radio', (done) => {
+        const radio = fixture('vl-radio-fixture');
+        radio.addEventListener('focus', () => done());
+        radio.check();
+      });
+
       test('bij het klikken op het input veld zal slechts één input event doorgestuurd worden', (done) => {
         const element = fixture('vl-radios-fixture');
         const radios = element.querySelectorAll('vl-radio');
