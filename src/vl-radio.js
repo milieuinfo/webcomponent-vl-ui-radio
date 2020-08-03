@@ -63,7 +63,6 @@ export class VlRadio extends vlElement(HTMLElement) {
   }
 
   check() {
-    this.focus();
     this._inputElement.click();
   }
 
@@ -72,6 +71,7 @@ export class VlRadio extends vlElement(HTMLElement) {
   }
 
   _check() {
+    this.focus();
     const host = this.getRootNode().host;
     const isSlot = host.assignedSlot != undefined;
     const rootNode = isSlot ? host.closest('vl-radio-group') : host.getRootNode();

@@ -25,6 +25,20 @@ describe('vl-radio-group', async () => {
     await assert.eventually.isTrue(radio2.isChecked());
   });
 
+  it('als gebruiker kan ik een radio aanvinken en zien dat deze focus gekregen heeft', async () => {
+    const radioGroup = await vlRadioGroupPage.getRadioGroup(1);
+    const radio1 = await radioGroup.getRadio(1);
+    const radio2 = await radioGroup.getRadio(2);
+    await assert.eventually.isFalse(radio1.isChecked());
+    await assert.eventually.isFalse(radio2.isChecked());
+
+    await radio2.click();
+    await assert.eventually.isFalse(radio1.isChecked());
+    await assert.eventually.isFalse(radio1.hasFocus());
+    await assert.eventually.isTrue(radio2.isChecked());
+    await assert.eventually.isTrue(radio2.hasFocus());
+  });
+
   it('als gebruiker kan ik de radio group elementen bereiken via de tab toets', async () => {
     const html = await driver.findElement(By.css('html'));
     const radioGroup1 = await vlRadioGroupPage.getRadioGroup(1);
