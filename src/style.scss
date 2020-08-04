@@ -30,3 +30,7 @@
 // Components
 // ==========================================================================
 @import "vl-ui-radio/src/scss/radio";
+
+.vl-radio.vl-radio--disabled {
+    color: $vl-disabled-color;
+}
