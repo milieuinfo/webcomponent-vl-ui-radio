@@ -49,13 +49,13 @@
   </test-fixture>
 
   <script>
-    suite('<vl-radio>', () => {
+    suite('vl-radio', () => {
       test('krijgt de juiste class wanneer de knop een attribuut bevat', () => {
         const radio = fixture('vl-radio-fixture');
         const radioLabel = radio.shadowRoot.querySelector('.vl-radio');
-        ['data-vl-block', 'data-vl-single', 'disabled', 'data-vl-error'].forEach((attribuut) => {
+        ['block', 'single', 'disabled', 'error'].forEach((attribuut) => {
           assert.isFalse(radioLabel.classList.contains('vl-radio--' + attribuut));
-          radio.setAttribute(attribuut, '');
+          radio.setAttribute(`data-vl-${attribuut}`, '');
           assert.isTrue(radioLabel.classList.contains('vl-radio--' + attribuut));
           radio.removeAttribute(attribuut);
           assert.isFalse(radioLabel.classList.contains('vl-radio--' + attribuut));
@@ -93,28 +93,28 @@
       test('zet het checked en disabled attribuut op de input radio', () => {
         ['checked', 'disabled'].forEach((attribute) => {
           const radio = fixture('vl-radio-fixture');
-          assert.isFalse(radio._inputElement[attribute]);
-          radio.setAttribute(attribute, true);
-          assert.isTrue(radio._inputElement[attribute]);
-          radio.setAttribute(attribute, false);
-          assert.isTrue(radio._inputElement[attribute]);
-          radio.setAttribute(attribute, '');
-          assert.isTrue(radio._inputElement[attribute]);
-          radio.removeAttribute(attribute);
-          assert.isFalse(radio._inputElement[attribute]);
+          assert.isFalse(radio._inputElement[`data-vl-${attribuut}`]);
+          radio.setAttribute(`data-vl-${attribuut}`, true);
+          assert.isTrue(radio._inputElement[`data-vl-${attribuut}`]);
+          radio.setAttribute(`data-vl-${attribuut}`, false);
+          assert.isTrue(radio._inputElement[`data-vl-${attribuut}`]);
+          radio.setAttribute(`data-vl-${attribuut}`, '');
+          assert.isTrue(radio._inputElement[`data-vl-${attribuut}`]);
+          radio.removeAttribute(`data-vl-${attribuut}`);
+          assert.isFalse(radio._inputElement[`data-vl-${attribuut}`]);
         });
       });
 
       test('zal de label verbergen wanneer de radio het single attribuut bevat', () => {
         const radio = fixture('vl-radio-fixture');
         assert.isFalse(radio._labelText.classList.contains('vl-u-visually-hidden'));
-        radio.setAttribute('single', true);
+        radio.setAttribute('data-vl-single', true);
         assert.isTrue(radio._labelText.classList.contains('vl-u-visually-hidden'));
-        radio.setAttribute('single', false);
+        radio.setAttribute('data-vl-single', false);
         assert.isTrue(radio._labelText.classList.contains('vl-u-visually-hidden'));
-        radio.setAttribute('single', '');
+        radio.setAttribute('data-vl-single', '');
         assert.isTrue(radio._labelText.classList.contains('vl-u-visually-hidden'));
-        radio.removeAttribute('single');
+        radio.removeAttribute('data-vl-single');
         assert.isFalse(radio._labelText.classList.contains('vl-u-visually-hidden'));
       });
 
