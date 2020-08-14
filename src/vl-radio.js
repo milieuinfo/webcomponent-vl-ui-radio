@@ -33,7 +33,7 @@ export class VlRadio extends vlElement(HTMLElement) {
   constructor() {
     super(`
       <style>
-          @import '/src/style.css';
+        @import '/src/style.css';
       </style>
       
       <label class="vl-radio" for="radio">
