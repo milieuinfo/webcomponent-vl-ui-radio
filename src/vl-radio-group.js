@@ -101,7 +101,9 @@ export const vlRadioGroup = {
         const enabledRadios = radios.filter((radio) => !radio.disabled);
         const checkedRadio = enabledRadios.find((radio) => radio.checked);
         const firstRadio = enabledRadios[0];
-        (checkedRadio || firstRadio).focus();
+        if (checkedRadio || firstRadio) {
+          (checkedRadio || firstRadio).focus();
+        }
       });
     }
     this.setFocusTransmitted();

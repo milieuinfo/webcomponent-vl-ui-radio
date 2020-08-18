@@ -34,6 +34,15 @@
     </template>
   </test-fixture>
 
+  <test-fixture id="vl-radio-group-disabled-fixture">
+    <template>
+      <vl-radio-group>
+        <vl-radio data-vl-value="1" data-vl-name="test" data-vl-disabled></vl-radio>
+        <vl-radio data-vl-value="2" data-vl-name="test" data-vl-disabled></vl-radio>
+      </vl-radio-group>
+    </template>
+  </test-fixture>
+
   <script>
     suite('<vl-radio-group>', () => {
       test('zet het data-vl-name attribuut bij de radio child elementen', () => {
@@ -70,6 +79,12 @@
         const radioGroup = fixture('vl-radio-group-fixture');
         radioGroup.radios[0].addEventListener('focus', () => done());
         radioGroup.focus();
+      });
+
+      test('de focus zal doorgedelegeerd worden naar het eerste optie element binnen de groep als die bestaat', (done) => {
+        const radioGroup = fixture('vl-radio-group-disabled-fixture');
+        radioGroup.addEventListener('focus', () => done());
+        radioGroup.dispatchEvent(new Event('focus'));
       });
     });
   </script>
