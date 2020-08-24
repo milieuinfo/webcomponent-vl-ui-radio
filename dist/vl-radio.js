@@ -7,6 +7,7 @@ import {vlRadioGroup} from '/node_modules/vl-ui-radio/dist/vl-radio-group.js';
  * @classdesc De radio laat de gebruiker toe om een enkele optie te selecteren uit een lijst. Gebruik de radio in formulieren. Vermijd een voorgedefinieerde keuze vast te leggen om de gebruiker een bewuste keuze te laten maken.
  *
  * @extends HTMLElement
+ * @mixes vlElement
  *
  * @property {boolean} data-vl-block - Attribuut wordt gebruikt om ervoor te zorgen dat de radio getoond wordt als een block element en bijgevolg de breedte van de parent zal aannemen.
  * @property {boolean} data-vl-checked - Attribuut wordt gebruikt om de radio standaard te selecteren.
@@ -33,7 +34,7 @@ export class VlRadio extends vlElement(HTMLElement) {
   constructor() {
     super(`
       <style>
-          @import '/node_modules/vl-ui-radio/dist/style.css';
+        @import '/node_modules/vl-ui-radio/dist/style.css';
       </style>
       
       <label class="vl-radio" for="radio">
