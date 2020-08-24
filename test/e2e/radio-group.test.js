@@ -250,19 +250,19 @@ describe('vl-radio-group', async () => {
       await html.sendKeys(Key.TAB);
     }
 
-    radio1.sendKeys(Key.RIGHT);
+    await radio1.sendKeys(Key.RIGHT);
     await assert.eventually.isFalse(radio1.isChecked());
     await assert.eventually.isTrue(radio2.isChecked());
 
-    radio2.sendKeys(Key.LEFT);
+    await radio2.sendKeys(Key.LEFT);
     await assert.eventually.isTrue(radio1.isChecked());
     await assert.eventually.isFalse(radio2.isChecked());
 
-    radio1.sendKeys(Key.UP);
+    await radio1.sendKeys(Key.UP);
     await assert.eventually.isFalse(radio1.isChecked());
     await assert.eventually.isTrue(radio2.isChecked());
 
-    radio2.sendKeys(Key.DOWN);
+    await radio2.sendKeys(Key.DOWN);
     await assert.eventually.isTrue(radio1.isChecked());
     await assert.eventually.isFalse(radio2.isChecked());
   });
@@ -284,19 +284,19 @@ describe('vl-radio-group', async () => {
       await html.sendKeys(Key.TAB);
     }
 
-    radio1.sendKeys(Key.RIGHT);
+    await radio1.sendKeys(Key.RIGHT);
     await assert.eventually.isFalse(radio1.isChecked());
     await assert.eventually.isTrue(radio2.isChecked());
 
-    radio2.sendKeys(Key.RIGHT);
+    await radio2.sendKeys(Key.RIGHT);
     await assert.eventually.isTrue(radio1.isChecked());
     await assert.eventually.isFalse(radio2.isChecked());
 
-    radio1.sendKeys(Key.UP);
+    await radio1.sendKeys(Key.UP);
     await assert.eventually.isFalse(radio1.isChecked());
     await assert.eventually.isTrue(radio2.isChecked());
 
-    radio2.sendKeys(Key.UP);
+    await radio2.sendKeys(Key.UP);
     await assert.eventually.isTrue(radio1.isChecked());
     await assert.eventually.isFalse(radio2.isChecked());
   });

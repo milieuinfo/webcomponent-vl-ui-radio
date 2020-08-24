@@ -64,6 +64,10 @@ export class VlRadio extends vlElement(HTMLElement) {
     return this._inputElement.disabled;
   }
 
+  get hasFocus() {
+    return this._inputElement == this._getActiveElement();
+  }
+
   set checked(value) {
     return this._inputElement.checked = value;
   }
@@ -132,6 +136,14 @@ export class VlRadio extends vlElement(HTMLElement) {
 
   _singleChangedCallback(oldValue, newValue) {
     this._toggleClass(this._labelText, newValue, 'vl-u-visually-hidden');
+  }
+
+  _getActiveElement(element = document) {
+    if (element.activeElement && element.activeElement.shadowRoot) {
+      return this._getActiveElement(element.activeElement.shadowRoot);
+    } else {
+      return element.activeElement || element;
+    }
   }
 }
 

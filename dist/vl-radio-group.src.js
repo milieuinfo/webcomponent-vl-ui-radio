@@ -9,7 +9,7 @@ export const vlRadioGroup = {
    * Zet het key events registered attribuut.
    */
   setKeyEventsRegistered() {
-    const parent = this.parentElement;
+    const parent = this._parentElement();
     parent.setAttribute('data-vl-key-events-registered', '');
   },
 
@@ -18,7 +18,7 @@ export const vlRadioGroup = {
    * @return {boolean}
    */
   hasKeyEventsRegistered() {
-    const parent = this.parentElement;
+    const parent = this._parentElement();
     return parent.hasAttribute('data-vl-key-events-registered');
   },
 
@@ -26,7 +26,7 @@ export const vlRadioGroup = {
    * Zet het focus transmit attribuut.
    */
   setFocusTransmitted() {
-    const parent = this.parentElement;
+    const parent = this._parentElement();
     parent.setAttribute('data-vl-focus-transmitted', '');
   },
 
@@ -35,7 +35,7 @@ export const vlRadioGroup = {
    * @return {boolean}
    */
   hasFocusTransmitted() {
-    const parent = this.parentElement;
+    const parent = this._parentElement();
     return parent.hasAttribute('data-vl-focus-transmitted');
   },
 
@@ -52,12 +52,12 @@ export const vlRadioGroup = {
         right: 39,
         down: 40,
       };
-      const parent = this.parentElement;
+      const parent = this._parentElement();
       parent.addEventListener('keydown', (event) => {
         const includesArrowKey = Object.values(keys).includes(event.keyCode);
         if (includesArrowKey) {
           event.preventDefault();
-          const focusedRadio = radios.find((radio) => radio == document.activeElement);
+          const focusedRadio = radios.find((radio) => radio.hasFocus);
           const firstRadio = radios[0];
           const lastRadio = radios[radios.length - 1];
           switch (event.keyCode) {
@@ -89,7 +89,7 @@ export const vlRadioGroup = {
    */
   transmitFocus(radios) {
     if (!this.hasFocusTransmitted()) {
-      const parent = this.parentElement;
+      const parent = this._parentElement();
       parent.addEventListener('focus', () => {
         parent.addEventListener('keyup', (event) => {
           if (event.shiftKey) {
@@ -101,10 +101,16 @@ export const vlRadioGroup = {
         const enabledRadios = radios.filter((radio) => !radio.disabled);
         const checkedRadio = enabledRadios.find((radio) => radio.checked);
         const firstRadio = enabledRadios[0];
-        (checkedRadio || firstRadio).focus();
+        if (checkedRadio || firstRadio) {
+          (checkedRadio || firstRadio).focus();
+        }
       });
     }
     this.setFocusTransmitted();
+  },
+
+  _parentElement() {
+    return this.parentElement || this.getRootNode().host;
   },
 };
 
