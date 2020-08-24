@@ -155,4 +155,49 @@ describe('vl-radio', async () => {
     await assert.eventually.isFalse(radio1.hasFocus());
     await assert.eventually.isTrue(radio2.hasFocus());
   });
+
+  it('als gebruiker kan ik een radio met een shadow DOM parent aanvinken door gebruik te maken van de pijl toetsen', async () => {
+    const html = await driver.findElement(By.css('html'));
+    const radio1 = await vlRadioPage.getShadowDOMRadio(1);
+    const radio2 = await vlRadioPage.getShadowDOMRadio(2);
+    await assert.eventually.isFalse(radio1.isChecked());
+    await assert.eventually.isFalse(radio2.isChecked());
+
+    if (Config.browserName == 'chrome') {
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+    } else {
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+    }
+
+    radio1.sendKeys(Key.RIGHT);
+    await assert.eventually.isFalse(radio1.isChecked());
+    await assert.eventually.isTrue(radio2.isChecked());
+
+    radio2.sendKeys(Key.LEFT);
+    await assert.eventually.isTrue(radio1.isChecked());
+    await assert.eventually.isFalse(radio2.isChecked());
+
+    radio1.sendKeys(Key.UP);
+    await assert.eventually.isFalse(radio1.isChecked());
+    await assert.eventually.isTrue(radio2.isChecked());
+
+    radio2.sendKeys(Key.DOWN);
+    await assert.eventually.isTrue(radio1.isChecked());
+    await assert.eventually.isFalse(radio2.isChecked());
+  });
 });

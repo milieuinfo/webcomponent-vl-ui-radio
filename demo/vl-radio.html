@@ -5,13 +5,13 @@
     <script type="module" src="/node_modules/vl-ui-demo/dist/vl-demo-all.js"></script>
 
     <script type="module" src="/src/vl-radio.js"></script>
+    <script type="module" src="/demo/vl-radio-test.js"></script>
 
     <link rel="stylesheet" type="text/css" href="/node_modules/vl-ui-core/dist/style.css" />
 </head>
 
 <body>
-    <vl-demo-page data-vl-webcomponent="vl-radio"
-        data-vl-link="https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-radio">
+    <vl-demo-page data-vl-webcomponent="vl-radio" data-vl-link="https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-radio">
         <vl-demo data-vl-title="Radio">
             <vl-radio id="radio-1" data-vl-label="Ja" data-vl-value="yes" data-vl-name="group-0"></vl-radio>
             <vl-radio id="radio-2" data-vl-label="Nee" data-vl-value="no" data-vl-name="group-0"></vl-radio>
@@ -47,6 +47,10 @@
             <vl-radio id="radio-slot-label-2" data-vl-value="no" data-vl-name="group-6">
                 <span>Nee</span>
             </vl-radio>
+        </vl-demo>
+
+        <vl-demo data-vl-title="Radio in shadow DOM">
+            <vl-radio-test></vl-radio-test>
         </vl-demo>
     </vl-demo-page>
 </body>

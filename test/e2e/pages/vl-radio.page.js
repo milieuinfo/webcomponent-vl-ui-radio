@@ -1,15 +1,8 @@
 const VlRadio = require('../components/vl-radio');
 const {Page, Config} = require('vl-ui-core').Test;
+const {By} = require('vl-ui-core').Test.Setup;
 
 class VlRadioPage extends Page {
-  async _getRadio(selector) {
-    return new VlRadio(this.driver, selector);
-  }
-
-  async _getRadioByType(type, number) {
-    return this._getRadio(`#radio-${type}-${number}`);
-  }
-
   async getRadio(number) {
     return this._getRadio(`#radio-${number}`);
   }
@@ -38,8 +31,22 @@ class VlRadioPage extends Page {
     return this._getRadioByType('slot-label', number);
   }
 
+  async getShadowDOMRadio(number) {
+    const element = await this.driver.findElement(By.css('vl-radio-test'));
+    const radio = await this.driver.executeScript(`return arguments[0].shadowRoot.querySelector('#radio-${number}')`, element);
+    return new VlRadio(this.driver, radio);
+  }
+
   async load() {
     await super.load(Config.baseUrl + '/demo/vl-radio.html');
+  }
+
+  async _getRadio(selector) {
+    return new VlRadio(this.driver, selector);
+  }
+
+  async _getRadioByType(type, number) {
+    return this._getRadio(`#radio-${type}-${number}`);
   }
 }
 
