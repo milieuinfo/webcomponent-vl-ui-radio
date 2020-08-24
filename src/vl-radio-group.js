@@ -54,22 +54,23 @@ export const vlRadioGroup = {
       };
       const parent = this._parentElement();
       parent.addEventListener('keydown', (event) => {
+        const enabledRadios = radios.filter((radio) => !radio.disabled);
         const includesArrowKey = Object.values(keys).includes(event.keyCode);
         if (includesArrowKey) {
           event.preventDefault();
-          const focusedRadio = radios.find((radio) => radio.hasFocus);
-          const firstRadio = radios[0];
-          const lastRadio = radios[radios.length - 1];
+          const focusedRadio = enabledRadios.find((radio) => radio.hasFocus);
+          const firstRadio = enabledRadios[0];
+          const lastRadio = enabledRadios[enabledRadios.length - 1];
           switch (event.keyCode) {
             case keys.up:
             case keys.left: {
-              const previousRadio = radios[radios.indexOf(focusedRadio) - 1];
+              const previousRadio = enabledRadios[enabledRadios.indexOf(focusedRadio) - 1];
               (previousRadio || lastRadio).check();
               break;
             }
             case keys.down:
             case keys.right: {
-              const nextRadio = radios[radios.indexOf(focusedRadio) + 1];
+              const nextRadio = enabledRadios[enabledRadios.indexOf(focusedRadio) + 1];
               (nextRadio || firstRadio).check();
               break;
             }
