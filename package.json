@@ -37,7 +37,7 @@
     "demo": "http-server"
   },
   "dependencies": {
-    "vl-ui-core": "milieuinfo/webcomponent-vl-ui-core#focus"
+    "vl-ui-core": "github:milieuinfo/webcomponent-vl-ui-core#focus"
   },
   "peerDependencies": {
     "vl-ui-core": "milieuinfo/webcomponent-vl-ui-core#focus"
