@@ -39,7 +39,7 @@ class VlRadio extends VlElement {
   }
 
   async _getInput() {
-    return this.shadowRoot.findElement(By.css('input[type=\'radio\']'));
+    return this.shadowRoot.findElement(By.css('input[type="radio"]'));
   }
 
   async _getLabel() {

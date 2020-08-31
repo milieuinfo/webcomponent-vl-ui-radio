@@ -195,6 +195,12 @@
           assert.isTrue(radio3.checked);
         });
       });
+
+      test('de focus zal doorgedelegeerd worden naar het input element', (done) => {
+        const element = fixture('vl-radio-fixture');
+        element._inputElement.addEventListener('focus', () => done());
+        element.focus();
+      });
     });
   </script>
 </body>

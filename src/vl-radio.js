@@ -67,6 +67,10 @@ export class VlRadio extends vlElement(HTMLElement) {
     this._inputElement.click();
   }
 
+  focus() {
+    this._inputElement.focus();
+  }
+
   _check() {
     const host = this.getRootNode().host;
     const isSlot = host.assignedSlot != undefined;
