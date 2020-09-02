@@ -333,43 +333,45 @@ describe('vl-radio-group', async () => {
   });
 
   it('als gebruiker kan ik een radio aanvinken door gebruik te maken van de pijl toetsen en zal een disabled radio genegeerd worden', async () => {
-    const html = await driver.findElement(By.css('html'));
-    const radioGroup1 = await vlRadioGroupPage.getRadioGroup(1);
-    const radioGroup2 = await vlRadioGroupPage.getRadioGroup(2);
-    const radioGroup3 = await vlRadioGroupPage.getRadioGroup(3);
-    const radioGroup4 = await vlRadioGroupPage.getRadioGroup(4);
-    const radioGroup1Radio1 = await radioGroup1.getRadio(1);
-    const radioGroup1Radio2 = await radioGroup1.getRadio(2);
-    const radioGroup2Radio1 = await radioGroup2.getRadio(1);
-    const radioGroup2Radio2 = await radioGroup2.getRadio(2);
-    const radioGroup3Radio2 = await radioGroup3.getRadio(2);
-    const radio1 = await radioGroup4.getRadio(1);
-    const radio2 = await radioGroup4.getRadio(2);
-    const radio3 = await radioGroup4.getRadio(3);
-    await assert.eventually.isFalse(radio1.isChecked());
-    await assert.eventually.isFalse(radio2.isChecked());
-    await assert.eventually.isFalse(radio3.isChecked());
-
     if (Config.browserName == 'chrome') {
-      await html.sendKeys(Key.TAB);
-      await html.sendKeys(Key.TAB);
-      await html.sendKeys(Key.TAB);
-      await html.sendKeys(Key.TAB);
-      await html.sendKeys(Key.TAB);
-      await html.sendKeys(Key.TAB);
-      await html.sendKeys(Key.TAB);
-    } else {
-      await html.sendKeys(Key.TAB);
-      await radioGroup1Radio1.sendKeys(Key.TAB);
-      await radioGroup1Radio2.sendKeys(Key.TAB);
-      await radioGroup2Radio1.sendKeys(Key.TAB);
-      await radioGroup2Radio2.sendKeys(Key.TAB);
-      await radioGroup3Radio2.sendKeys(Key.TAB);
-    }
+      const html = await driver.findElement(By.css('html'));
+      const radioGroup1 = await vlRadioGroupPage.getRadioGroup(1);
+      const radioGroup2 = await vlRadioGroupPage.getRadioGroup(2);
+      const radioGroup3 = await vlRadioGroupPage.getRadioGroup(3);
+      const radioGroup4 = await vlRadioGroupPage.getRadioGroup(4);
+      const radioGroup1Radio1 = await radioGroup1.getRadio(1);
+      const radioGroup1Radio2 = await radioGroup1.getRadio(2);
+      const radioGroup2Radio1 = await radioGroup2.getRadio(1);
+      const radioGroup2Radio2 = await radioGroup2.getRadio(2);
+      const radioGroup3Radio2 = await radioGroup3.getRadio(2);
+      const radio1 = await radioGroup4.getRadio(1);
+      const radio2 = await radioGroup4.getRadio(2);
+      const radio3 = await radioGroup4.getRadio(3);
+      await assert.eventually.isFalse(radio1.isChecked());
+      await assert.eventually.isFalse(radio2.isChecked());
+      await assert.eventually.isFalse(radio3.isChecked());
 
-    await radio1.sendKeys(Key.RIGHT);
-    await assert.eventually.isFalse(radio1.isChecked());
-    await assert.eventually.isFalse(radio2.isChecked());
-    await assert.eventually.isTrue(radio3.isChecked());
+      if (Config.browserName == 'chrome') {
+        await html.sendKeys(Key.TAB);
+        await html.sendKeys(Key.TAB);
+        await html.sendKeys(Key.TAB);
+        await html.sendKeys(Key.TAB);
+        await html.sendKeys(Key.TAB);
+        await html.sendKeys(Key.TAB);
+        await html.sendKeys(Key.TAB);
+      } else {
+        await html.sendKeys(Key.TAB);
+        await radioGroup1Radio1.sendKeys(Key.TAB);
+        await radioGroup1Radio2.sendKeys(Key.TAB);
+        await radioGroup2Radio1.sendKeys(Key.TAB);
+        await radioGroup2Radio2.sendKeys(Key.TAB);
+        await radioGroup3Radio2.sendKeys(Key.TAB);
+      }
+
+      await radio1.sendKeys(Key.RIGHT);
+      await assert.eventually.isFalse(radio1.isChecked());
+      await assert.eventually.isFalse(radio2.isChecked());
+      await assert.eventually.isTrue(radio3.isChecked());
+    }
   });
 });
