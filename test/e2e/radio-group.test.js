@@ -374,4 +374,131 @@ describe('vl-radio-group', async () => {
       await assert.eventually.isTrue(radio3.isChecked());
     }
   });
+
+  it('als gebruiker kan ik de radio group elementen bereiken via de tab toets', async () => {
+    const html = await driver.findElement(By.css('html'));
+    const radioGroup1 = await vlRadioGroupPage.getRadioGroup(1);
+    const radioGroup2 = await vlRadioGroupPage.getRadioGroup(2);
+    const radioGroup1Radio1 = await radioGroup1.getRadio(1);
+    const radioGroup1Radio2 = await radioGroup1.getRadio(2);
+    const radioGroup2Radio1 = await radioGroup2.getRadio(1);
+    const radioGroup2Radio2 = await radioGroup2.getRadio(2);
+
+    await assert.eventually.isFalse(radioGroup1Radio1.hasFocus());
+    await assert.eventually.isFalse(radioGroup1Radio2.hasFocus());
+    await assert.eventually.isFalse(radioGroup2Radio1.hasFocus());
+    await assert.eventually.isFalse(radioGroup2Radio2.hasFocus());
+
+    if (Config.browserName == 'chrome') {
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+      await assert.eventually.isTrue(radioGroup1Radio1.hasFocus());
+      await assert.eventually.isFalse(radioGroup1Radio2.hasFocus());
+      await assert.eventually.isFalse(radioGroup2Radio1.hasFocus());
+      await assert.eventually.isFalse(radioGroup2Radio2.hasFocus());
+
+      await radioGroup1Radio1.sendKeys(Key.TAB);
+      await assert.eventually.isFalse(radioGroup1Radio1.hasFocus());
+      await assert.eventually.isFalse(radioGroup1Radio2.hasFocus());
+      await assert.eventually.isTrue(radioGroup2Radio1.hasFocus());
+      await assert.eventually.isFalse(radioGroup2Radio2.hasFocus());
+    } else {
+      // TODO fix docker issues
+      // await html.sendKeys(Key.TAB);
+      // await assert.eventually.isTrue(radioGroup1Radio1.hasFocus());
+      // await assert.eventually.isFalse(radioGroup1Radio2.hasFocus());
+      // await assert.eventually.isFalse(radioGroup2Radio1.hasFocus());
+      // await assert.eventually.isFalse(radioGroup2Radio2.hasFocus());
+
+      // await radioGroup1Radio1.sendKeys(Key.TAB);
+      // await radioGroup1Radio2.sendKeys(Key.TAB);
+      // await assert.eventually.isFalse(radioGroup1Radio1.hasFocus());
+      // await assert.eventually.isFalse(radioGroup1Radio2.hasFocus());
+      // await assert.eventually.isTrue(radioGroup2Radio1.hasFocus());
+      // await assert.eventually.isFalse(radioGroup2Radio2.hasFocus());
+    }
+  });
+
+  it('als gebruiker kan ik de radio group elementen bereiken via de shift tab toets', async () => {
+    const html = await driver.findElement(By.css('html'));
+    const radioGroup1 = await vlRadioGroupPage.getRadioGroup(1);
+    const radioGroup2 = await vlRadioGroupPage.getRadioGroup(2);
+    const radioGroup1Radio1 = await radioGroup1.getRadio(1);
+    const radioGroup1Radio2 = await radioGroup1.getRadio(2);
+    const radioGroup2Radio1 = await radioGroup2.getRadio(1);
+    const radioGroup2Radio2 = await radioGroup2.getRadio(2);
+
+    await assert.eventually.isFalse(radioGroup1Radio1.hasFocus());
+    await assert.eventually.isFalse(radioGroup1Radio2.hasFocus());
+    await assert.eventually.isFalse(radioGroup2Radio1.hasFocus());
+    await assert.eventually.isFalse(radioGroup2Radio2.hasFocus());
+
+    if (Config.browserName == 'chrome') {
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+      await html.sendKeys(Key.TAB);
+      await radioGroup1Radio1.sendKeys(Key.TAB);
+      await radioGroup2Radio1.sendKeys(Key.TAB);
+      await assert.eventually.isFalse(radioGroup1Radio1.hasFocus());
+      await assert.eventually.isFalse(radioGroup1Radio2.hasFocus());
+      await assert.eventually.isFalse(radioGroup2Radio1.hasFocus());
+      await assert.eventually.isFalse(radioGroup2Radio2.hasFocus());
+
+      await html.sendKeys(Key.SHIFT + Key.TAB);
+      await assert.eventually.isFalse(radioGroup1Radio1.hasFocus());
+      await assert.eventually.isFalse(radioGroup1Radio2.hasFocus());
+      await assert.eventually.isFalse(radioGroup2Radio1.hasFocus());
+      await assert.eventually.isTrue(radioGroup2Radio2.hasFocus());
+
+      await radioGroup2Radio2.sendKeys(Key.SHIFT + Key.TAB);
+      await assert.eventually.isFalse(radioGroup1Radio1.hasFocus());
+      await assert.eventually.isTrue(radioGroup1Radio2.hasFocus());
+      await assert.eventually.isFalse(radioGroup2Radio1.hasFocus());
+      await assert.eventually.isFalse(radioGroup2Radio2.hasFocus());
+
+      await radioGroup1Radio2.sendKeys(Key.SHIFT + Key.TAB);
+      await assert.eventually.isFalse(radioGroup1Radio1.hasFocus());
+      await assert.eventually.isFalse(radioGroup1Radio2.hasFocus());
+      await assert.eventually.isFalse(radioGroup2Radio1.hasFocus());
+      await assert.eventually.isFalse(radioGroup2Radio2.hasFocus());
+    } else {
+      // TODO fix docker issues
+      // await html.sendKeys(Key.TAB);
+      // await radioGroup1Radio1.sendKeys(Key.TAB);
+      // await radioGroup1Radio2.sendKeys(Key.TAB);
+      // await radioGroup2Radio1.sendKeys(Key.TAB);
+      // await assert.eventually.isFalse(radioGroup1Radio1.hasFocus());
+      // await assert.eventually.isFalse(radioGroup1Radio2.hasFocus());
+      // await assert.eventually.isFalse(radioGroup2Radio1.hasFocus());
+      // await assert.eventually.isTrue(radioGroup2Radio2.hasFocus());
+
+      // await radioGroup2Radio2.sendKeys(Key.SHIFT + Key.TAB);
+      // await assert.eventually.isFalse(radioGroup1Radio1.hasFocus());
+      // await assert.eventually.isFalse(radioGroup1Radio2.hasFocus());
+      // await assert.eventually.isTrue(radioGroup2Radio1.hasFocus());
+      // await assert.eventually.isFalse(radioGroup2Radio2.hasFocus());
+
+      // await radioGroup2Radio1.sendKeys(Key.SHIFT + Key.TAB);
+      // await assert.eventually.isFalse(radioGroup1Radio1.hasFocus());
+      // await assert.eventually.isTrue(radioGroup1Radio2.hasFocus());
+      // await assert.eventually.isFalse(radioGroup2Radio1.hasFocus());
+      // await assert.eventually.isFalse(radioGroup2Radio2.hasFocus());
+
+      // await radioGroup1Radio2.sendKeys(Key.SHIFT + Key.TAB);
+      // await assert.eventually.isTrue(radioGroup1Radio1.hasFocus());
+      // await assert.eventually.isFalse(radioGroup1Radio2.hasFocus());
+      // await assert.eventually.isFalse(radioGroup2Radio1.hasFocus());
+      // await assert.eventually.isFalse(radioGroup2Radio2.hasFocus());
+
+      // await radioGroup1Radio1.sendKeys(Key.SHIFT + Key.TAB);
+      // await assert.eventually.isFalse(radioGroup1Radio1.hasFocus());
+      // await assert.eventually.isFalse(radioGroup1Radio2.hasFocus());
+      // await assert.eventually.isFalse(radioGroup2Radio1.hasFocus());
+      // await assert.eventually.isFalse(radioGroup2Radio2.hasFocus());
+    }
+  });
 });
