@@ -111,7 +111,7 @@ export const vlRadioGroup = {
   },
 
   _parentElement() {
-    return this.parentElement || this.getRootNode().host;
+    return this.parentElement || this.getRootNode().host || this.getRootNode();
   },
 };
 
