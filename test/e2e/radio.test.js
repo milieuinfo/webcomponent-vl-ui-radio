@@ -1,4 +1,5 @@
-const {assert, driver} = require('vl-ui-core').Test.Setup;
+const {Config} = require('vl-ui-core').Test;
+const {assert, driver, By, Key} = require('vl-ui-core').Test.Setup;
 const VlRadioPage = require('./pages/vl-radio.page');
 
 describe('vl-radio', async () => {
@@ -67,6 +68,112 @@ describe('vl-radio', async () => {
   it('als gebruiker kan ik zien dat een radio standaard aangevinkt staat', async () => {
     const radio1 = await vlRadioPage.getCheckedRadio(1);
     const radio2 = await vlRadioPage.getCheckedRadio(2);
+    await assert.eventually.isFalse(radio1.isChecked());
+    await assert.eventually.isTrue(radio2.isChecked());
+  });
+
+  it('als gebruiker kan ik een radio aanvinken door gebruik te maken van de pijl toetsen', async () => {
+    if (Config.browserName == 'chrome') {
+      const html = await driver.findElement(By.css('html'));
+      const radio1 = await vlRadioPage.getRadio(1);
+      const radio2 = await vlRadioPage.getRadio(2);
+      await assert.eventually.isFalse(radio1.isChecked());
+      await assert.eventually.isFalse(radio2.isChecked());
+
+      if (Config.browserName == 'chrome') {
+        await html.sendKeys(Key.TAB);
+        await html.sendKeys(Key.TAB);
+        await html.sendKeys(Key.TAB);
+        await html.sendKeys(Key.TAB);
+      } else {
+        await html.sendKeys(Key.TAB);
+      }
+
+      await radio1.sendKeys(Key.RIGHT);
+      await assert.eventually.isFalse(radio1.isChecked());
+      await assert.eventually.isTrue(radio2.isChecked());
+
+      await radio2.sendKeys(Key.LEFT);
+      await assert.eventually.isTrue(radio1.isChecked());
+      await assert.eventually.isFalse(radio2.isChecked());
+
+      await radio1.sendKeys(Key.UP);
+      await assert.eventually.isFalse(radio1.isChecked());
+      await assert.eventually.isTrue(radio2.isChecked());
+
+      await radio2.sendKeys(Key.DOWN);
+      await assert.eventually.isTrue(radio1.isChecked());
+      await assert.eventually.isFalse(radio2.isChecked());
+    }
+  });
+
+  it('als gebruiker kan ik door gebruik te maken van de pijl toetsen van de laatste radio naar de eerste gaan en omgekeerd', async () => {
+    if (Config.browserName == 'chrome') {
+      const html = await driver.findElement(By.css('html'));
+      const radio1 = await vlRadioPage.getRadio(1);
+      const radio2 = await vlRadioPage.getRadio(2);
+      await assert.eventually.isFalse(radio1.isChecked());
+      await assert.eventually.isFalse(radio2.isChecked());
+
+      if (Config.browserName == 'chrome') {
+        await html.sendKeys(Key.TAB);
+        await html.sendKeys(Key.TAB);
+        await html.sendKeys(Key.TAB);
+        await html.sendKeys(Key.TAB);
+      } else {
+        await html.sendKeys(Key.TAB);
+      }
+
+      await radio1.sendKeys(Key.RIGHT);
+      await assert.eventually.isFalse(radio1.isChecked());
+      await assert.eventually.isTrue(radio2.isChecked());
+
+      await radio2.sendKeys(Key.RIGHT);
+      await assert.eventually.isTrue(radio1.isChecked());
+      await assert.eventually.isFalse(radio2.isChecked());
+
+      await radio1.sendKeys(Key.UP);
+      await assert.eventually.isFalse(radio1.isChecked());
+      await assert.eventually.isTrue(radio2.isChecked());
+
+      await radio2.sendKeys(Key.UP);
+      await assert.eventually.isTrue(radio1.isChecked());
+      await assert.eventually.isFalse(radio2.isChecked());
+    }
+  });
+
+  it('als gebruiker zie ik dat het reeds geselecteerde radio element focus krijgt bij het tabben', async () => {
+    if (Config.browserName == 'chrome') {
+      const html = await driver.findElement(By.css('html'));
+      const radio1 = await vlRadioPage.getRadio(1);
+      const radio2 = await vlRadioPage.getRadio(2);
+
+      await radio2.click();
+
+      if (Config.browserName == 'chrome') {
+        await html.sendKeys(Key.SHIFT + Key.TAB);
+      } else {
+        await radio2.sendKeys(Key.SHIFT + Key.TAB);
+      }
+
+      await html.sendKeys(Key.TAB);
+      await assert.eventually.isFalse(radio1.hasFocus());
+      await assert.eventually.isTrue(radio2.hasFocus());
+    }
+  });
+
+  it('als gebruiker kan ik een radio met een shadow DOM parent aanvinken door gebruik te maken van de pijl toetsen', async () => {
+    const radios = await vlRadioPage.getShadowDOMRadioElement();
+    const radio1 = await vlRadioPage.getShadowDOMRadio(1);
+    const radio2 = await vlRadioPage.getShadowDOMRadio(2);
+    await assert.eventually.isFalse(radio1.isChecked());
+    await assert.eventually.isFalse(radio2.isChecked());
+
+    await radio1.click();
+    await assert.eventually.isTrue(radio1.isChecked());
+    await assert.eventually.isFalse(radio2.isChecked());
+
+    await radios.sendKeys(Key.RIGHT);
     await assert.eventually.isFalse(radio1.isChecked());
     await assert.eventually.isTrue(radio2.isChecked());
   });

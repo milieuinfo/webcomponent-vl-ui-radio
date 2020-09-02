@@ -6,6 +6,7 @@
     <script type="module" src="/node_modules/vl-ui-body/dist/vl-body.js"></script>
 
     <script type="module" src="/src/vl-radio.js"></script>
+    <script type="module" src="/demo/vl-radio-test.js"></script>
 
     <link rel="stylesheet" type="text/css" href="/node_modules/vl-ui-body/dist/style.css" />
 </head>
@@ -18,35 +19,39 @@
         </vl-demo>
 
         <vl-demo data-vl-title="Radio block">
-            <vl-radio id="radio-block-1" data-vl-label="Ja" data-vl-value="yes" data-vl-name="group-2" data-vl-block></vl-radio>
-            <vl-radio id="radio-block-2" data-vl-label="Nee" data-vl-value="no" data-vl-name="group-2" data-vl-block></vl-radio>
+            <vl-radio id="radio-block-1" data-vl-label="Ja" data-vl-value="yes" data-vl-name="group-1" data-vl-block></vl-radio>
+            <vl-radio id="radio-block-2" data-vl-label="Nee" data-vl-value="no" data-vl-name="group-1" data-vl-block></vl-radio>
         </vl-demo>
 
         <vl-demo data-vl-title="Radio error">
-            <vl-radio id="radio-error-1" data-vl-label="Ja" data-vl-value="yes" data-vl-name="group-3" data-vl-error></vl-radio>
+            <vl-radio id="radio-error-1" data-vl-label="Ja" data-vl-value="yes" data-vl-name="group-2" data-vl-error></vl-radio>
         </vl-demo>
 
-        <vl-demo data-vl-title="Radio disabled">
-            <vl-radio id="radio-disabled-1" data-vl-label="Ja" data-vl-value="yes" data-vl-name="group-4" data-vl-disabled></vl-radio>
-            <vl-radio data-vl-label="Nee" data-vl-value="no" data-vl-name="group-4" data-vl-disabled></vl-radio>
+        <vl-demo data-vl-title="Radio disabled" tabindex="-1">
+            <vl-radio id="radio-disabled-1" data-vl-label="Ja" data-vl-value="yes" data-vl-name="group-3" data-vl-disabled></vl-radio>
+            <vl-radio data-vl-label="Nee" data-vl-value="no" data-vl-name="group-3" data-vl-disabled></vl-radio>
         </vl-demo>
 
         <vl-demo data-vl-title="Radio single">
-            <vl-radio id="radio-single-1" data-vl-label="Nee" data-vl-value="no" data-vl-name="group-5" data-vl-single></vl-radio>
+            <vl-radio id="radio-single-1" data-vl-label="Nee" data-vl-value="no" data-vl-name="group-4" data-vl-single></vl-radio>
         </vl-demo>
 
         <vl-demo data-vl-title="Radio checked">
-            <vl-radio id="radio-checked-1" data-vl-label="Ja" data-vl-value="yes" data-vl-name="group-1"></vl-radio>
-            <vl-radio id="radio-checked-2" data-vl-label="Nee" data-vl-value="no" data-vl-name="group-1" data-vl-checked></vl-radio>
+            <vl-radio id="radio-checked-1" data-vl-label="Ja" data-vl-value="yes" data-vl-name="group-5"></vl-radio>
+            <vl-radio id="radio-checked-2" data-vl-label="Nee" data-vl-value="no" data-vl-name="group-5" data-vl-checked></vl-radio>
         </vl-demo>
 
         <vl-demo data-vl-title="Radio slot label">
-            <vl-radio id="radio-slot-label-1" data-vl-value="yes" data-vl-name="group-1">
+            <vl-radio id="radio-slot-label-1" data-vl-value="yes" data-vl-name="group-6">
                 <span><strong>Ja</strong></span>
             </vl-radio>
-            <vl-radio id="radio-slot-label-2" data-vl-value="no" data-vl-name="group-1">
+            <vl-radio id="radio-slot-label-2" data-vl-value="no" data-vl-name="group-6">
                 <span>Nee</span>
             </vl-radio>
+        </vl-demo>
+
+        <vl-demo data-vl-title="Radio in shadow DOM">
+            <vl-radio-test></vl-radio-test>
         </vl-demo>
     </vl-demo-page>
 </body>

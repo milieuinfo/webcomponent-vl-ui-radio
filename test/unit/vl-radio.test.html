@@ -145,6 +145,12 @@
         radio.check();
       });
 
+      test('check zal focus geven aan de nieuw geselecteerde radio', (done) => {
+        const radio = fixture('vl-radio-fixture');
+        radio.addEventListener('focus', () => done());
+        radio.check();
+      });
+
       test('bij het klikken op het input veld zal slechts één input event doorgestuurd worden', (done) => {
         const element = fixture('vl-radios-fixture');
         const radios = element.querySelectorAll('vl-radio');
@@ -200,6 +206,27 @@
         const element = fixture('vl-radio-fixture');
         element._inputElement.addEventListener('focus', () => done());
         element.focus();
+      });
+
+      test('checked en disabled getter en setter gebruikt de correcte value van het input veld', () => {
+        ['checked', 'disabled'].forEach((attribute) => {
+          const element = fixture('vl-radios-fixture');
+          const radios = element.querySelectorAll('vl-radio');
+          const radio1 = radios[0];
+          const radio2 = radios[1];
+          const radio3 = radios[2];
+          assert.isFalse(radio1[attribute]);
+          assert.isFalse(radio2[attribute]);
+          assert.isFalse(radio3[attribute]);
+          radio1[attribute] = true;
+          assert.isTrue(radio1[attribute]);
+          assert.isFalse(radio2[attribute]);
+          assert.isFalse(radio3[attribute]);
+          radio1[attribute] = false;
+          assert.isFalse(radio1[attribute]);
+          assert.isFalse(radio2[attribute]);
+          assert.isFalse(radio3[attribute]);
+        });
       });
     });
   </script>

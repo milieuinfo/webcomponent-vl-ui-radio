@@ -1,4 +1,5 @@
 import {vlElement, define} from '/node_modules/vl-ui-core/dist/vl-core.js';
+import {vlRadioGroup} from '/node_modules/vl-ui-radio/dist/vl-radio-group.js';
 
 /**
  * VlRadio
@@ -45,10 +46,35 @@ export class VlRadio extends vlElement(HTMLElement) {
         </div>
       </label>
     `);
+    Object.assign(this, vlRadioGroup);
   }
 
   connectedCallback() {
-    this._inputElement.onchange = this._check;
+    this._inputElement.addEventListener('change', () => this._check());
+    setTimeout(() => {
+      this.registerKeyEvents(this._radios);
+      this.transmitFocus(this._radios);
+    });
+  }
+
+  get checked() {
+    return this._inputElement.checked;
+  }
+
+  get disabled() {
+    return this._inputElement.disabled;
+  }
+
+  get hasFocus() {
+    return this._inputElement == this._getActiveElement();
+  }
+
+  set checked(value) {
+    return this._inputElement.checked = value;
+  }
+
+  set disabled(value) {
+    return this._inputElement.disabled = value;
   }
 
   get _classPrefix() {
@@ -63,19 +89,30 @@ export class VlRadio extends vlElement(HTMLElement) {
     return this._element.querySelector('#label-text');
   }
 
+  get _radios() {
+    const isSlot = this.assignedSlot != undefined;
+    const rootNode = isSlot ? this.closest('vl-radio-group') : this.getRootNode();
+    return [...(rootNode || this.getRootNode()).querySelectorAll(`vl-radio[data-vl-name='${this.dataset.vlName}']`)];
+  }
+
   check() {
     this._inputElement.click();
   }
 
+  focus() {
+    this._inputElement.focus();
+  }
+
   _check() {
-    const host = this.getRootNode().host;
-    const isSlot = host.assignedSlot != undefined;
-    const rootNode = isSlot ? host.closest('vl-radio-group') : host.getRootNode();
-    const radios = (rootNode || host.getRootNode()).querySelectorAll(`vl-radio[data-vl-name='${this.name}']`);
-    [...radios]
+    this.focus();
+    this._inputElement.tabIndex = 0;
+    this._radios
         .filter((radio) => radio.checked)
-        .filter((radio) => radio !== host)
+        .filter((radio) => radio !== this)
         .forEach((radio) => radio.checked = false);
+    this._radios
+        .filter((radio) => !radio.checked)
+        .forEach((radio) => radio._inputElement.tabIndex = '-1');
   }
 
   _labelChangedCallback(oldValue, newValue) {
@@ -90,14 +127,6 @@ export class VlRadio extends vlElement(HTMLElement) {
     this._inputElement.name = newValue;
   }
 
-  get checked() {
-    return this._inputElement.checked;
-  }
-
-  set checked(value) {
-    return this._inputElement.checked = value;
-  }
-
   _checkedChangedCallback(oldValue, newValue) {
     this._inputElement.checked = newValue != null;
   }
@@ -108,6 +137,14 @@ export class VlRadio extends vlElement(HTMLElement) {
 
   _singleChangedCallback(oldValue, newValue) {
     this._toggleClass(this._labelText, newValue, 'vl-u-visually-hidden');
+  }
+
+  _getActiveElement(element = document) {
+    if (element.activeElement && element.activeElement.shadowRoot) {
+      return this._getActiveElement(element.activeElement.shadowRoot);
+    } else {
+      return element.activeElement || element;
+    }
   }
 }
 
