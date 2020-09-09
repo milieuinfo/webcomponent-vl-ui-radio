@@ -23,6 +23,10 @@ import {vlRadioGroup} from 'vl-ui-radio/dist/vl-radio-group.src.js';
  * @see {@link https://webcomponenten.omgeving.vlaanderen.be/demo/vl-radio.html|Demo}
  */
 export class VlRadio extends vlElement(HTMLElement) {
+  static get formAssociated() {
+    return true;
+  }
+
   static get _observedAttributes() {
     return ['label', 'name', 'value', 'checked'];
   }
@@ -39,7 +43,7 @@ export class VlRadio extends vlElement(HTMLElement) {
       </style>
       
       <label class="vl-radio" for="radio">
-        <input class="vl-radio__toggle" type="radio" id="radio" data-vl-name="radio"/>
+        <input class="vl-radio__toggle" type="radio" id="radio" name="radio"/>
         <div class="vl-radio__label">
           <span id="label-text">
             <slot></slot>
@@ -93,7 +97,7 @@ export class VlRadio extends vlElement(HTMLElement) {
   get _radios() {
     const isSlot = this.assignedSlot != undefined;
     const rootNode = isSlot ? this.closest('vl-radio-group') : this.getRootNode();
-    return [...(rootNode || this.getRootNode()).querySelectorAll(`vl-radio[data-vl-name='${this.dataset.vlName}']`)];
+    return [...(rootNode || this.getRootNode()).querySelectorAll(`vl-radio[name='${this.dataset.vlName}']`)];
   }
 
   check() {
@@ -125,7 +129,10 @@ export class VlRadio extends vlElement(HTMLElement) {
   }
 
   _nameChangedCallback(oldValue, newValue) {
-    this._inputElement.name = newValue;
+    if (this._inputElement.name != newValue) {
+      this._inputElement.name = newValue;
+      this.setAttribute('name', newValue);
+    }
   }
 
   _checkedChangedCallback(oldValue, newValue) {

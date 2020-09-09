@@ -48,6 +48,16 @@
     </template>
   </test-fixture>
 
+  <test-fixture id="vl-radios-in-form-fixture">
+    <template>
+      <form>
+        <vl-radio data-vl-value="1" data-vl-name="radio-1"></vl-radio>
+        <vl-radio data-vl-value="2" data-vl-name="radio-2"></vl-radio>
+        <vl-radio data-vl-value="3" data-vl-name="radio-3"></vl-radio>
+      </form>
+    </template>
+  </test-fixture>
+
   <script>
     suite('vl-radio', () => {
       test('krijgt de juiste class wanneer de knop een attribuut bevat', () => {
@@ -226,6 +236,14 @@
           assert.isFalse(radio1[attribute]);
           assert.isFalse(radio2[attribute]);
           assert.isFalse(radio3[attribute]);
+        });
+      });
+
+      test('de radio kan via de form selector opgevraagd worden', () => {
+        const form = fixture('vl-radios-in-form-fixture');
+        const radios = form.querySelectorAll('vl-radio');
+        radios.forEach((radio, index) => {
+          assert.equal(form[`radio-${++index}`], radio);
         });
       });
     });
