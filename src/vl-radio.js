@@ -57,22 +57,50 @@ export class VlRadio extends vlElement(HTMLElement) {
     });
   }
 
+  /**
+   * Geeft de value attribuut waarde van het input element.
+   * @return {string}
+   */
+  get value() {
+    return this._inputElement.value;
+  }
+
+  /**
+   * Geeft de huidige status van het input element.
+   * @return {boolean}
+   */
   get checked() {
     return this._inputElement.checked;
   }
 
+  /**
+   * Geeft de disabled attribuut waarde van het input element dat een indicatie geeft of er interactie mogelijk is.
+   * @return {boolean}
+   */
   get disabled() {
     return this._inputElement.disabled;
   }
 
+  /**
+   * Geeft terug of het input element focus heeft.
+   * @return {boolean}
+   */
   get hasFocus() {
     return this._inputElement == this._getActiveElement();
   }
 
+  /**
+   * Zet de status van het input element.
+   * @param {boolean} value
+   */
   set checked(value) {
     return this._inputElement.checked = value;
   }
 
+  /**
+   * Zet de disabled attribuut waarde van het input element om interactie uit of in te schakelen.
+   * @param {boolean} value
+   */
   set disabled(value) {
     return this._inputElement.disabled = value;
   }

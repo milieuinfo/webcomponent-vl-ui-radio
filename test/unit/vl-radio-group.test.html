@@ -47,7 +47,7 @@
     suite('<vl-radio-group>', () => {
       test('zet het data-vl-name attribuut bij de radio child elementen', () => {
         const radioGroup = fixture('vl-radio-group-fixture');
-        const radios = radioGroup.querySelectorAll('vl-radio');
+        const radios = radioGroup.radios;
         assert.isDefined(radios[0].getAttribute('data-vl-name'));
         assert.equal(radios[0].getAttribute('data-vl-name'), radios[1].getAttribute('data-vl-name'));
         assert.equal(radios[0].getAttribute('data-vl-name'), radios[2].getAttribute('data-vl-name'));
@@ -57,8 +57,8 @@
         const radioGroups = fixture('vl-radio-groups-fixture');
         const radioGroup1 = radioGroups[0];
         const radioGroup2 = radioGroups[1];
-        const radiosGroup1 = radioGroup1.querySelectorAll('vl-radio');
-        const radiosGroup2 = radioGroup2.querySelectorAll('vl-radio');
+        const radiosGroup1 = radioGroup1.radios;
+        const radiosGroup2 = radioGroup2.radios;
         assert.isFalse(radiosGroup1[0].checked);
         assert.isFalse(radiosGroup1[1].checked);
         assert.isFalse(radiosGroup2[0].checked);
@@ -87,6 +87,15 @@
         const radioGroup = fixture('vl-radio-group-disabled-fixture');
         radioGroup.addEventListener('focus', () => done());
         radioGroup.dispatchEvent(new Event('focus'));
+      });
+
+      test('het is mogelijk om de checked radios op te vragen', () => {
+        const radioGroup = fixture('vl-radio-group-fixture');
+        const radios = radioGroup.radios;
+        assert.lengthOf(radioGroup.checkedRadios, 0);
+        radios[0].checked = true;
+        assert.lengthOf(radioGroup.checkedRadios, 1);
+        assert.include(radioGroup.checkedRadios, radios[0]);
       });
     });
   </script>

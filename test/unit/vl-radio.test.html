@@ -12,7 +12,7 @@
 <body>
   <test-fixture id="vl-radio-fixture">
     <template>
-      <vl-radio></vl-radio>
+      <vl-radio data-vl-value="1"></vl-radio>
     </template>
   </test-fixture>
 
@@ -227,6 +227,11 @@
           assert.isFalse(radio2[attribute]);
           assert.isFalse(radio3[attribute]);
         });
+      });
+
+      test('de value van het input element kan opgevraagd worden', () => {
+        const radio = fixture('vl-radio-fixture');
+        assert.equal(radio.value, '1');
       });
     });
   </script>

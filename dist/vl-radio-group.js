@@ -143,6 +143,10 @@ export class VlRadioGroup extends vlElement(HTMLElement) {
     return [...this.querySelectorAll('vl-radio')];
   }
 
+  get checkedRadios() {
+    return this.radios.filter((radio) => radio.checked);
+  }
+
   _groupRadios() {
     this.radios.forEach((radio) => radio.setAttribute('data-vl-name', 'radio'));
   }
