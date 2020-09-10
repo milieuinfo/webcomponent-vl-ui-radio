@@ -19,9 +19,9 @@
   <test-fixture id="vl-radios-fixture">
     <template>
       <div>
-        <vl-radio data-vl-value="1" data-vl-name="test"></vl-radio>
-        <vl-radio data-vl-value="2" data-vl-name="test"></vl-radio>
-        <vl-radio data-vl-value="3" data-vl-name="test"></vl-radio>
+        <vl-radio data-vl-value="1" data-vl-name="radio-group"></vl-radio>
+        <vl-radio data-vl-value="2" data-vl-name="radio-group"></vl-radio>
+        <vl-radio data-vl-value="3" data-vl-name="radio-group"></vl-radio>
       </div>
     </template>
   </test-fixture>
@@ -30,17 +30,17 @@
     <template>
       <div>
         <div>
-          <vl-radio data-vl-value="1" data-vl-name="test"></vl-radio>
+          <vl-radio data-vl-value="1" data-vl-name="radio-group"></vl-radio>
         </div>
         <div>
           <div>
-            <vl-radio data-vl-value="3" data-vl-name="test"></vl-radio>
+            <vl-radio data-vl-value="3" data-vl-name="radio-group"></vl-radio>
           </div>
         </div>
         <div>
           <div>
             <div>
-              <vl-radio data-vl-value="2" data-vl-name="test"></vl-radio>
+              <vl-radio data-vl-value="2" data-vl-name="radio-group"></vl-radio>
             </div>
           </div>
         </div>
@@ -51,9 +51,9 @@
   <test-fixture id="vl-radios-in-form-fixture">
     <template>
       <form>
-        <vl-radio data-vl-value="1" data-vl-name="radio-1"></vl-radio>
-        <vl-radio data-vl-value="2" data-vl-name="radio-2"></vl-radio>
-        <vl-radio data-vl-value="3" data-vl-name="radio-3"></vl-radio>
+        <vl-radio data-vl-value="1" data-vl-name="radio-group"></vl-radio>
+        <vl-radio data-vl-value="2" data-vl-name="radio-group"></vl-radio>
+        <vl-radio data-vl-value="3" data-vl-name="radio-group"></vl-radio>
       </form>
     </template>
   </test-fixture>
@@ -258,9 +258,8 @@
       test('de radio kan via de form selector opgevraagd worden', () => {
         const form = fixture('vl-radios-in-form-fixture');
         const radios = form.querySelectorAll('vl-radio');
-        radios.forEach((radio, index) => {
-          assert.equal(form[`radio-${++index}`], radio);
-        });
+        radios.forEach((radio, index) => radio.setAttribute('data-vl-name', `radio-${++index}`));
+        radios.forEach((radio, index) => assert.equal(form[`radio-${++index}`], radio));
       });
 
       test('de radio elementen kunnen gereset worden via het formulier', () => {

@@ -52,6 +52,7 @@ export class VlRadio extends vlElement(HTMLElement) {
       </label>
     `);
     Object.assign(this, vlRadioGroup);
+    this._internals = this.attachInternals();
   }
 
   connectedCallback() {
@@ -60,6 +61,49 @@ export class VlRadio extends vlElement(HTMLElement) {
       this.registerKeyEvents(this._radios);
       this.transmitFocus(this._radios);
     });
+  }
+
+  /**
+   * Callback called when the form is reset.
+   */
+  formResetCallback() {
+    this.checked = this.hasAttribute('checked');
+  }
+
+  /**
+   * Returns a reference to the parent <form> element.
+   *
+   * @return {HTMLFormElement}
+   */
+  get form() {
+    return this._internals.form;
+  }
+
+  /**
+   * Returns the element's current validity state.
+   *
+   * @return {ValidityState}
+   */
+  get validity() {
+    return this._internals.validity;
+  }
+
+  /**
+   * Returns a localized message that describes the validation constraints that the control does not satisfy (if any). This is the empty string if the control is not a candidate for constraint validation (willvalidate is false), or it satisfies its constraints. This value can be set by the setCustomValidity method.
+   *
+   * @return {string}
+   */
+  get validationMessage() {
+    return this._internals.validationMessage;
+  }
+
+  /**
+   * Returns whether the element is a candidate for constraint validation.
+   *
+   * @return {boolean}
+   */
+  get willValidate() {
+    return this._internals.willValidate;
   }
 
   get checked() {
@@ -101,7 +145,7 @@ export class VlRadio extends vlElement(HTMLElement) {
   get _radios() {
     const isSlot = this.assignedSlot != undefined;
     const rootNode = isSlot ? this.closest('vl-radio-group') : this.getRootNode();
-    return [...(rootNode || this.getRootNode()).querySelectorAll(`vl-radio[name='${this.dataset.vlName}']`)];
+    return [...(rootNode || this.getRootNode()).querySelectorAll(`vl-radio[data-vl-name='${this.dataset.vlName}']`)];
   }
 
   check() {
