@@ -228,6 +228,12 @@
           assert.isFalse(radio3[attribute]);
         });
       });
+
+      test('het input change event wordt door geprogageerd', (done) => {
+        const radio = fixture('vl-radio-fixture');
+        radio.addEventListener('change', () => done());
+        radio._inputElement.click();
+      });
     });
   </script>
 </body>
