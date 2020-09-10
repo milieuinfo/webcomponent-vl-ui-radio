@@ -5,7 +5,7 @@ export class VlRadioTest extends vlElement(HTMLElement) {
   constructor() {
     super(`
       <style>
-          @import '/node_modules/vl-ui-radio/dist/style.css';
+          @import '/src/style.css';
       </style>
 
       <vl-radio id="radio-1" data-vl-label="Ja" data-vl-value="yes" data-vl-name="group-0"></vl-radio>

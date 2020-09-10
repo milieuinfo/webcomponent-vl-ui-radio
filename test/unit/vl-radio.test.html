@@ -246,6 +246,28 @@
           assert.equal(form[`radio-${++index}`], radio);
         });
       });
+
+      test('de radio elementen kunnen gereset worden via het formulier', () => {
+        const form = fixture('vl-radios-in-form-fixture');
+        const radios = form.querySelectorAll('vl-radio');
+        radios[0].setAttribute('data-vl-checked', '');
+        assert.isTrue(radios[0].checked);
+        assert.isFalse(radios[1].checked);
+        radios[1].checked = true;
+        assert.isFalse(radios[0].checked);
+        assert.isTrue(radios[1].checked);
+        form.reset();
+        assert.isTrue(radios[0].checked);
+        assert.isFalse(radios[1].checked);
+      });
+
+      test('de form getters worden correct gedelegeerd', () => {
+        const radio = fixture('vl-radio-fixture');
+        assert.equal(radio.form, radio._internals.form);
+        assert.equal(radio.validity, radio._internals.validity);
+        assert.equal(radio.validationMessage, radio._internals.validationMessage);
+        assert.equal(radio.willValidate, radio._internals.willValidate);
+      });
     });
   </script>
 </body>
