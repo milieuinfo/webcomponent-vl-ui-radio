@@ -70,7 +70,11 @@ export class VlRadio extends vlElement(HTMLElement) {
   }
 
   set checked(value) {
-    return this._inputElement.checked = value;
+    this._inputElement.checked = value;
+    if (value) {
+      this._check();
+    }
+    return value;
   }
 
   set disabled(value) {
