@@ -147,11 +147,11 @@ export class VlRadioGroup extends vlElement(HTMLElement) {
   }
 
   /**
-   * Geeft de radio elementen die checked zijn terug.
-   * @return {Array.<HTMLInputElement>}
+   * Geeft het radio element die checked is terug.
+   * @return {HTMLInputElement}
    */
-  get checkedRadios() {
-    return this.radios.filter((radio) => radio.checked);
+  get checkedRadio() {
+    return this.radios.find((radio) => radio.checked);
   }
 
   _groupRadios() {

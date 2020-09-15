@@ -41,7 +41,6 @@ export const vlRadioGroup = {
 
   /**
    * Activeer keydown event listener om het navigeren over radio group elementen toe te laten.
-   *
    * @param {Object[]} radios - Een Array van radio HTMLElement
    */
   registerKeyEvents(radios) {
@@ -139,12 +138,20 @@ export class VlRadioGroup extends vlElement(HTMLElement) {
     this._transmitFocus();
   }
 
+  /**
+   * Geeft de radio elementen terug.
+   * @return {Array.<HTMLInputElement>}
+   */
   get radios() {
     return [...this.querySelectorAll('vl-radio')];
   }
 
-  get checkedRadios() {
-    return this.radios.filter((radio) => radio.checked);
+  /**
+   * Geeft het radio element die checked is terug.
+   * @return {HTMLInputElement}
+   */
+  get checkedRadio() {
+    return this.radios.find((radio) => radio.checked);
   }
 
   _groupRadios() {

@@ -89,13 +89,12 @@
         radioGroup.dispatchEvent(new Event('focus'));
       });
 
-      test('het is mogelijk om de checked radios op te vragen', () => {
+      test('het is mogelijk om de checked radio op te vragen', () => {
         const radioGroup = fixture('vl-radio-group-fixture');
         const radios = radioGroup.radios;
-        assert.lengthOf(radioGroup.checkedRadios, 0);
+        assert.isUndefined(radioGroup.checked);
         radios[0].checked = true;
-        assert.lengthOf(radioGroup.checkedRadios, 1);
-        assert.include(radioGroup.checkedRadios, radios[0]);
+        assert.equal(radioGroup.checkedRadio, radios[0]);
       });
     });
   </script>
