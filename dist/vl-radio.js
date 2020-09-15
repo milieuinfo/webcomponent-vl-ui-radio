@@ -34,7 +34,7 @@ export class VlRadio extends vlElement(HTMLElement) {
   constructor() {
     super(`
       <style>
-        @import '/node_modules/vl-ui-radio/dist/style.css';
+      @import '/node_modules/vl-ui-radio/dist/style.css';
       </style>
       
       <label class="vl-radio" for="radio">
@@ -128,7 +128,10 @@ export class VlRadio extends vlElement(HTMLElement) {
   }
 
   _nameChangedCallback(oldValue, newValue) {
-    this._inputElement.name = newValue;
+    if (this._inputElement.name != newValue) {
+      this._inputElement.name = newValue;
+      this.setAttribute('name', newValue);
+    }
   }
 
   _checkedChangedCallback(oldValue, newValue) {

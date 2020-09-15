@@ -129,7 +129,10 @@ export class VlRadio extends vlElement(HTMLElement) {
   }
 
   _nameChangedCallback(oldValue, newValue) {
-    this._inputElement.name = newValue;
+    if (this._inputElement.name != newValue) {
+      this._inputElement.name = newValue;
+      this.setAttribute('name', newValue);
+    }
   }
 
   _checkedChangedCallback(oldValue, newValue) {
