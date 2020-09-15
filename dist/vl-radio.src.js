@@ -71,7 +71,11 @@ export class VlRadio extends vlElement(HTMLElement) {
   }
 
   set checked(value) {
-    return this._inputElement.checked = value;
+    this._inputElement.checked = value;
+    if (value) {
+      this._check();
+    }
+    return value;
   }
 
   set disabled(value) {
@@ -125,7 +129,10 @@ export class VlRadio extends vlElement(HTMLElement) {
   }
 
   _nameChangedCallback(oldValue, newValue) {
-    this._inputElement.name = newValue;
+    if (this._inputElement.name != newValue) {
+      this._inputElement.name = newValue;
+      this.setAttribute('name', newValue);
+    }
   }
 
   _checkedChangedCallback(oldValue, newValue) {

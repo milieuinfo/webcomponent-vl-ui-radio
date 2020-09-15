@@ -14,9 +14,9 @@
   <test-fixture id="vl-radio-group-fixture">
     <template>
       <vl-radio-group>
-        <vl-radio data-vl-value="1" data-vl-name="test"></vl-radio>
-        <vl-radio data-vl-value="2" data-vl-name="test"></vl-radio>
-        <vl-radio data-vl-value="3" data-vl-name="test"></vl-radio>
+        <vl-radio data-vl-value="1" data-vl-name="radio-group"></vl-radio>
+        <vl-radio data-vl-value="2" data-vl-name="radio-group"></vl-radio>
+        <vl-radio data-vl-value="3" data-vl-name="radio-group"></vl-radio>
       </vl-radio-group>
     </template>
   </test-fixture>
@@ -24,12 +24,12 @@
   <test-fixture id="vl-radio-groups-fixture">
     <template>
       <vl-radio-group>
-        <vl-radio data-vl-value="1" data-vl-name="test"></vl-radio>
-        <vl-radio data-vl-value="2" data-vl-name="test"></vl-radio>
+        <vl-radio data-vl-value="1" data-vl-name="radio-group"></vl-radio>
+        <vl-radio data-vl-value="2" data-vl-name="radio-group"></vl-radio>
       </vl-radio-group>
       <vl-radio-group>
-        <vl-radio data-vl-value="1" data-vl-name="test"></vl-radio>
-        <vl-radio data-vl-value="2" data-vl-name="test"></vl-radio>
+        <vl-radio data-vl-value="1" data-vl-name="radio-group"></vl-radio>
+        <vl-radio data-vl-value="2" data-vl-name="radio-group"></vl-radio>
       </vl-radio-group>
     </template>
   </test-fixture>
@@ -37,8 +37,8 @@
   <test-fixture id="vl-radio-group-disabled-fixture">
     <template>
       <vl-radio-group>
-        <vl-radio data-vl-value="1" data-vl-name="test" data-vl-disabled></vl-radio>
-        <vl-radio data-vl-value="2" data-vl-name="test" data-vl-disabled></vl-radio>
+        <vl-radio data-vl-value="1" data-vl-name="radio-group" data-vl-disabled></vl-radio>
+        <vl-radio data-vl-value="2" data-vl-name="radio-group" data-vl-disabled></vl-radio>
       </vl-radio-group>
     </template>
   </test-fixture>
@@ -87,6 +87,17 @@
         const radioGroup = fixture('vl-radio-group-disabled-fixture');
         radioGroup.addEventListener('focus', () => done());
         radioGroup.dispatchEvent(new Event('focus'));
+      });
+
+      test('de name attributen van de onderliggende vl-radio elementen zal gedefinieerd worden door de vl-group', () => {
+        const radioGroup = fixture('vl-radio-group-fixture');
+        const radios = radioGroup.querySelectorAll('vl-radio');
+        assert.equal(radios[0].getAttribute('name'), 'radio');
+        assert.equal(radios[1].getAttribute('name'), 'radio');
+        assert.equal(radios[2].getAttribute('name'), 'radio');
+        assert.equal(radios[0].getAttribute('data-vl-name'), 'radio');
+        assert.equal(radios[1].getAttribute('data-vl-name'), 'radio');
+        assert.equal(radios[2].getAttribute('data-vl-name'), 'radio');
       });
     });
   </script>
