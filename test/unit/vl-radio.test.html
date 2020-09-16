@@ -229,6 +229,12 @@
         });
       });
 
+      test('het input change event wordt door geprogageerd', (done) => {
+        const radio = fixture('vl-radio-fixture');
+        radio.addEventListener('change', () => done());
+        radio._inputElement.click();
+      });
+
       test('de value van het input element kan opgevraagd worden', () => {
         const radio = fixture('vl-radio-fixture');
         assert.equal(radio.value, '1');

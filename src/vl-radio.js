@@ -51,6 +51,7 @@ export class VlRadio extends vlElement(HTMLElement) {
 
   connectedCallback() {
     this._inputElement.addEventListener('change', () => this._check());
+    this._registerChangeEvent();
     setTimeout(() => {
       this.registerKeyEvents(this._radios);
       this.transmitFocus(this._radios);
@@ -180,6 +181,10 @@ export class VlRadio extends vlElement(HTMLElement) {
     } else {
       return element.activeElement || element;
     }
+  }
+
+  _registerChangeEvent() {
+    this._inputElement.addEventListener('change', () => this.dispatchEvent(new Event('change')));
   }
 }
 
