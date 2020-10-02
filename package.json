@@ -37,10 +37,10 @@
     "demo": "http-server"
   },
   "dependencies": {
-    "vl-ui-core": "^6.0.1"
+    "vl-ui-core": "github:milieuinfo/webcomponent-vl-ui-core#browserstack"
   },
   "peerDependencies": {
-    "vl-ui-core": "^6.0.1"
+    "vl-ui-core": "github:milieuinfo/webcomponent-vl-ui-core#browserstack"
   },
   "devDependencies": {
     "@govflanders/vl-ui-radio": "^3.11.5",
