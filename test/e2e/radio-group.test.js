@@ -3,10 +3,12 @@ const {assert, getDriver, By, Key} = require('vl-ui-core').Test.Setup;
 const VlRadioGroupPage = require('./pages/vl-radio-group.page');
 
 describe('vl-radio-group', async () => {
+  let driver;
   let vlRadioGroupPage;
 
   beforeEach(() => {
-    vlRadioGroupPage = new VlRadioGroupPage(getDriver());
+    driver = getDriver();
+    vlRadioGroupPage = new VlRadioGroupPage(driver);
     return vlRadioGroupPage.load();
   });
 
