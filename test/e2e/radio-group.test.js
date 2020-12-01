@@ -1,12 +1,15 @@
 const {Config} = require('vl-ui-core').Test;
-const {assert, driver, By, Key} = require('vl-ui-core').Test.Setup;
+const {assert, getDriver, By, Key} = require('vl-ui-core').Test.Setup;
 const VlRadioGroupPage = require('./pages/vl-radio-group.page');
 
 describe('vl-radio-group', async () => {
-  const vlRadioGroupPage = new VlRadioGroupPage(driver);
+  let driver;
+  let vlRadioGroupPage;
 
-  beforeEach(async () => {
-    await vlRadioGroupPage.load();
+  beforeEach(() => {
+    driver = getDriver();
+    vlRadioGroupPage = new VlRadioGroupPage(driver);
+    return vlRadioGroupPage.load();
   });
 
   it('als gebruiker kan ik maar 1 radio tegelijkertijd aanvinken', async () => {
