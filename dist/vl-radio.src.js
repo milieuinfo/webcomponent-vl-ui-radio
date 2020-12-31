@@ -130,7 +130,7 @@ export class VlRadio extends vlElement(HTMLElement) {
   get _radios() {
     const isSlot = this.assignedSlot != undefined;
     const rootNode = isSlot ? this.closest('vl-radio-group') : this.getRootNode();
-    return [...(rootNode || this.getRootNode()).querySelectorAll(`vl-radio[name='${this.dataset.vlName}']`)];
+    return [...(rootNode || this.getRootNode()).querySelectorAll(`vl-radio[data-vl-name='${this.dataset.vlName}']`)];
   }
 
   check() {
