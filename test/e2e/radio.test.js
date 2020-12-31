@@ -1,12 +1,15 @@
 const {Config} = require('vl-ui-core').Test;
-const {assert, driver, By, Key} = require('vl-ui-core').Test.Setup;
+const {assert, getDriver, By, Key} = require('vl-ui-core').Test.Setup;
 const VlRadioPage = require('./pages/vl-radio.page');
 
 describe('vl-radio', async () => {
-  const vlRadioPage = new VlRadioPage(driver);
+  let driver;
+  let vlRadioPage;
 
-  beforeEach(async () => {
-    await vlRadioPage.load();
+  beforeEach(() => {
+    driver = getDriver();
+    vlRadioPage = new VlRadioPage(driver);
+    return vlRadioPage.load();
   });
 
   it('als gebruiker kan ik het radio label zien', async () => {

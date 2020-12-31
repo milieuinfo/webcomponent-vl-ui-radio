@@ -38,7 +38,7 @@ export class VlRadio extends vlElement(HTMLElement) {
   constructor() {
     super(`
       <style>
-        @import '/src/style.css';
+      @import '/src/style.css';
       </style>
       
       <label class="vl-radio" for="radio">
@@ -55,28 +55,61 @@ export class VlRadio extends vlElement(HTMLElement) {
 
   connectedCallback() {
     this._inputElement.addEventListener('change', () => this._check());
+    this._registerChangeEvent();
     setTimeout(() => {
       this.registerKeyEvents(this._radios);
       this.transmitFocus(this._radios);
     });
   }
 
+  /**
+   * Geeft de value attribuut waarde van het input element.
+   * @return {string}
+   */
+  get value() {
+    return this._inputElement.value;
+  }
+
+  /**
+   * Geeft de huidige status van het input element.
+   * @return {boolean}
+   */
   get checked() {
     return this._inputElement.checked;
   }
 
+  /**
+   * Geeft de disabled attribuut waarde van het input element dat een indicatie geeft of er interactie mogelijk is.
+   * @return {boolean}
+   */
   get disabled() {
     return this._inputElement.disabled;
   }
 
+  /**
+   * Geeft terug of het input element focus heeft.
+   * @return {boolean}
+   */
   get hasFocus() {
     return this._inputElement == this._getActiveElement();
   }
 
+  /**
+   * Zet de status van het input element.
+   * @param {boolean} value
+   */
   set checked(value) {
-    return this._inputElement.checked = value;
+    this._inputElement.checked = value;
+    if (value) {
+      this._check();
+    }
+    return value;
   }
 
+  /**
+   * Zet de disabled attribuut waarde van het input element om interactie uit of in te schakelen.
+   * @param {boolean} value
+   */
   set disabled(value) {
     return this._inputElement.disabled = value;
   }
@@ -152,6 +185,10 @@ export class VlRadio extends vlElement(HTMLElement) {
     } else {
       return element.activeElement || element;
     }
+  }
+
+  _registerChangeEvent() {
+    this._inputElement.addEventListener('change', () => this.dispatchEvent(new Event('change')));
   }
 }
 
