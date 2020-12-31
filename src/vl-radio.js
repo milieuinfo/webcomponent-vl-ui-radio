@@ -50,6 +50,7 @@ export class VlRadio extends vlElement(HTMLElement) {
         </div>
       </label>
     `);
+
     Object.assign(this, vlRadioGroup);
     if (this.attachInternals) {
       this._internals = this.attachInternals();
