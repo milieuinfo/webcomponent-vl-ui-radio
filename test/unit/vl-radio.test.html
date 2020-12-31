@@ -244,22 +244,6 @@
         });
       });
 
-      test('programmatisch een radio aanvinken zal de andere radio elementen uitvinken', () => {
-        const element = fixture('vl-radios-fixture');
-        const radios = element.querySelectorAll('vl-radio');
-        assert.isFalse(radios[0].checked);
-        assert.isFalse(radios[1].checked);
-        assert.isFalse(radios[2].checked);
-        radios[0].checked = true;
-        assert.isTrue(radios[0].checked);
-        assert.isFalse(radios[1].checked);
-        assert.isFalse(radios[2].checked);
-        radios[1].checked = true;
-        assert.isFalse(radios[0].checked);
-        assert.isTrue(radios[1].checked);
-        assert.isFalse(radios[2].checked);
-      });
-
       test('de radio kan via de form selector opgevraagd worden', () => {
         if (hasElementInternalsSupport()) {
           const form = fixture('vl-radios-in-form-fixture');
