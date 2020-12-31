@@ -38,7 +38,7 @@ export class VlRadio extends vlElement(HTMLElement) {
   constructor() {
     super(`
       <style>
-        @import '/node_modules/vl-ui-radio/dist/style.css';
+      @import '/node_modules/vl-ui-radio/dist/style.css';
       </style>
       
       <label class="vl-radio" for="radio">
@@ -56,6 +56,7 @@ export class VlRadio extends vlElement(HTMLElement) {
 
   connectedCallback() {
     this._inputElement.addEventListener('change', () => this._check());
+    this._registerChangeEvent();
     setTimeout(() => {
       this.registerKeyEvents(this._radios);
       this.transmitFocus(this._radios);
@@ -63,60 +64,41 @@ export class VlRadio extends vlElement(HTMLElement) {
   }
 
   /**
-   * Callback called when the form is reset.
-   */
-  formResetCallback() {
-    this.checked = this.hasAttribute('checked');
-  }
-
-  /**
-   * Returns a reference to the parent <form> element.
-   *
-   * @return {HTMLFormElement}
-   */
-  get form() {
-    return this._internals.form;
-  }
-
-  /**
-   * Returns the element's current validity state.
-   *
-   * @return {ValidityState}
-   */
-  get validity() {
-    return this._internals.validity;
-  }
-
-  /**
-   * Returns a localized message that describes the validation constraints that the control does not satisfy (if any). This is the empty string if the control is not a candidate for constraint validation (willvalidate is false), or it satisfies its constraints. This value can be set by the setCustomValidity method.
-   *
+   * Geeft de value attribuut waarde van het input element.
    * @return {string}
    */
-  get validationMessage() {
-    return this._internals.validationMessage;
+  get value() {
+    return this._inputElement.value;
   }
 
   /**
-   * Returns whether the element is a candidate for constraint validation.
-   *
+   * Geeft de huidige status van het input element.
    * @return {boolean}
    */
-  get willValidate() {
-    return this._internals.willValidate;
-  }
-
   get checked() {
     return this._inputElement.checked;
   }
 
+  /**
+   * Geeft de disabled attribuut waarde van het input element dat een indicatie geeft of er interactie mogelijk is.
+   * @return {boolean}
+   */
   get disabled() {
     return this._inputElement.disabled;
   }
 
+  /**
+   * Geeft terug of het input element focus heeft.
+   * @return {boolean}
+   */
   get hasFocus() {
     return this._inputElement == this._getActiveElement();
   }
 
+  /**
+   * Zet de status van het input element.
+   * @param {boolean} value
+   */
   set checked(value) {
     this._inputElement.checked = value;
     if (value) {
@@ -125,6 +107,10 @@ export class VlRadio extends vlElement(HTMLElement) {
     return value;
   }
 
+  /**
+   * Zet de disabled attribuut waarde van het input element om interactie uit of in te schakelen.
+   * @param {boolean} value
+   */
   set disabled(value) {
     return this._inputElement.disabled = value;
   }
@@ -200,6 +186,10 @@ export class VlRadio extends vlElement(HTMLElement) {
     } else {
       return element.activeElement || element;
     }
+  }
+
+  _registerChangeEvent() {
+    this._inputElement.addEventListener('change', () => this.dispatchEvent(new Event('change')));
   }
 }
 

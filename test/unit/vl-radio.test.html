@@ -12,7 +12,7 @@
 <body>
   <test-fixture id="vl-radio-fixture">
     <template>
-      <vl-radio></vl-radio>
+      <vl-radio data-vl-value="1"></vl-radio>
     </template>
   </test-fixture>
 
@@ -60,6 +60,11 @@
 
   <script>
     suite('vl-radio', () => {
+      const hasElementInternalsSupport = () => {
+        const checkbox = fixture('vl-radio-fixture');
+        return checkbox._internals != undefined;
+      };
+
       test('krijgt de juiste class wanneer de knop een attribuut bevat', () => {
         const radio = fixture('vl-radio-fixture');
         const radioLabel = radio.shadowRoot.querySelector('.vl-radio');
@@ -256,10 +261,12 @@
       });
 
       test('de radio kan via de form selector opgevraagd worden', () => {
-        const form = fixture('vl-radios-in-form-fixture');
-        const radios = form.querySelectorAll('vl-radio');
-        radios.forEach((radio, index) => radio.setAttribute('data-vl-name', `radio-${++index}`));
-        radios.forEach((radio, index) => assert.equal(form[`radio-${++index}`], radio));
+        if (hasElementInternalsSupport()) {
+          const form = fixture('vl-radios-in-form-fixture');
+          const radios = form.querySelectorAll('vl-radio');
+          radios.forEach((radio, index) => radio.setAttribute('data-vl-name', `radio-${++index}`));
+          radios.forEach((radio, index) => assert.equal(form[`radio-${++index}`], radio));
+        }
       });
 
       test('de radio elementen kunnen gereset worden via het formulier', () => {
@@ -282,6 +289,33 @@
         assert.equal(radio.validity, radio._internals.validity);
         assert.equal(radio.validationMessage, radio._internals.validationMessage);
         assert.equal(radio.willValidate, radio._internals.willValidate);
+      });
+
+      test('het input change event wordt door geprogageerd', (done) => {
+        const radio = fixture('vl-radio-fixture');
+        radio.addEventListener('change', () => done());
+        radio._inputElement.click();
+      });
+
+      test('de value van het input element kan opgevraagd worden', () => {
+        const radio = fixture('vl-radio-fixture');
+        assert.equal(radio.value, '1');
+      });
+
+      test('programmatisch een radio aanvinken zal de andere radio elementen uitvinken', () => {
+        const element = fixture('vl-radios-fixture');
+        const radios = element.querySelectorAll('vl-radio');
+        assert.isFalse(radios[0].checked);
+        assert.isFalse(radios[1].checked);
+        assert.isFalse(radios[2].checked);
+        radios[0].checked = true;
+        assert.isTrue(radios[0].checked);
+        assert.isFalse(radios[1].checked);
+        assert.isFalse(radios[2].checked);
+        radios[1].checked = true;
+        assert.isFalse(radios[0].checked);
+        assert.isTrue(radios[1].checked);
+        assert.isFalse(radios[2].checked);
       });
     });
   </script>
