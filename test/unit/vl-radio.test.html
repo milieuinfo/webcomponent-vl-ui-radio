@@ -48,8 +48,23 @@
     </template>
   </test-fixture>
 
+  <test-fixture id="vl-radios-in-form-fixture">
+    <template>
+      <form>
+        <vl-radio data-vl-value="1" data-vl-name="radio-1"></vl-radio>
+        <vl-radio data-vl-value="2" data-vl-name="radio-2"></vl-radio>
+        <vl-radio data-vl-value="3" data-vl-name="radio-3"></vl-radio>
+      </form>
+    </template>
+  </test-fixture>
+
   <script>
     suite('vl-radio', () => {
+      const hasElementInternalsSupport = () => {
+        const checkbox = fixture('vl-radio-fixture');
+        return checkbox._internals != undefined;
+      };
+
       test('krijgt de juiste class wanneer de knop een attribuut bevat', () => {
         const radio = fixture('vl-radio-fixture');
         const radioLabel = radio.shadowRoot.querySelector('.vl-radio');
@@ -229,6 +244,16 @@
         });
       });
 
+      test('de radio kan via de form selector opgevraagd worden', () => {
+        if (hasElementInternalsSupport()) {
+          const form = fixture('vl-radios-in-form-fixture');
+          const radios = form.querySelectorAll('vl-radio');
+          radios.forEach((radio, index) => {
+            assert.equal(form[`radio-${++index}`], radio);
+          });
+        }
+      });
+    
       test('het input change event wordt door geprogageerd', (done) => {
         const radio = fixture('vl-radio-fixture');
         radio.addEventListener('change', () => done());
