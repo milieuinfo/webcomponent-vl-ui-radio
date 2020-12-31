@@ -51,8 +51,11 @@ export class VlRadio extends vlElement(HTMLElement) {
         </div>
       </label>
     `);
+
     Object.assign(this, vlRadioGroup);
-    this._internals = this.attachInternals();
+    if (this.attachInternals) {
+      this._internals = this.attachInternals();
+    }
   }
 
   connectedCallback() {
@@ -77,7 +80,7 @@ export class VlRadio extends vlElement(HTMLElement) {
    * @return {HTMLFormElement}
    */
   get form() {
-    return this._internals.form;
+    return this._internals?.form;
   }
 
   /**
@@ -86,7 +89,7 @@ export class VlRadio extends vlElement(HTMLElement) {
    * @return {ValidityState}
    */
   get validity() {
-    return this._internals.validity;
+    return this._internals?.validity;
   }
 
   /**
@@ -95,7 +98,7 @@ export class VlRadio extends vlElement(HTMLElement) {
    * @return {string}
    */
   get validationMessage() {
-    return this._internals.validationMessage;
+    return this._internals?.validationMessage;
   }
 
   /**
@@ -104,7 +107,7 @@ export class VlRadio extends vlElement(HTMLElement) {
    * @return {boolean}
    */
   get willValidate() {
-    return this._internals.willValidate;
+    return this._internals?.willValidate;
   }
 
   /**
