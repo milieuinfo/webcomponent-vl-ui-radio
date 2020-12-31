@@ -19,9 +19,9 @@
   <test-fixture id="vl-radios-fixture">
     <template>
       <div>
-        <vl-radio data-vl-value="1" data-vl-name="test"></vl-radio>
-        <vl-radio data-vl-value="2" data-vl-name="test"></vl-radio>
-        <vl-radio data-vl-value="3" data-vl-name="test"></vl-radio>
+        <vl-radio data-vl-value="1" data-vl-name="radio-group"></vl-radio>
+        <vl-radio data-vl-value="2" data-vl-name="radio-group"></vl-radio>
+        <vl-radio data-vl-value="3" data-vl-name="radio-group"></vl-radio>
       </div>
     </template>
   </test-fixture>
@@ -30,17 +30,17 @@
     <template>
       <div>
         <div>
-          <vl-radio data-vl-value="1" data-vl-name="test"></vl-radio>
+          <vl-radio data-vl-value="1" data-vl-name="radio-group"></vl-radio>
         </div>
         <div>
           <div>
-            <vl-radio data-vl-value="3" data-vl-name="test"></vl-radio>
+            <vl-radio data-vl-value="3" data-vl-name="radio-group"></vl-radio>
           </div>
         </div>
         <div>
           <div>
             <div>
-              <vl-radio data-vl-value="2" data-vl-name="test"></vl-radio>
+              <vl-radio data-vl-value="2" data-vl-name="radio-group"></vl-radio>
             </div>
           </div>
         </div>
@@ -51,9 +51,9 @@
   <test-fixture id="vl-radios-in-form-fixture">
     <template>
       <form>
-        <vl-radio data-vl-value="1" data-vl-name="radio-1"></vl-radio>
-        <vl-radio data-vl-value="2" data-vl-name="radio-2"></vl-radio>
-        <vl-radio data-vl-value="3" data-vl-name="radio-3"></vl-radio>
+        <vl-radio data-vl-value="1" data-vl-name="radio-group"></vl-radio>
+        <vl-radio data-vl-value="2" data-vl-name="radio-group"></vl-radio>
+        <vl-radio data-vl-value="3" data-vl-name="radio-group"></vl-radio>
       </form>
     </template>
   </test-fixture>
@@ -248,12 +248,37 @@
         if (hasElementInternalsSupport()) {
           const form = fixture('vl-radios-in-form-fixture');
           const radios = form.querySelectorAll('vl-radio');
-          radios.forEach((radio, index) => {
-            assert.equal(form[`radio-${++index}`], radio);
-          });
+          radios.forEach((radio, index) => radio.setAttribute('data-vl-name', `radio-${++index}`));
+          radios.forEach((radio, index) => assert.equal(form[`radio-${++index}`], radio));
         }
       });
-    
+
+      test('de radio elementen kunnen gereset worden via het formulier', () => {
+        if (hasElementInternalsSupport()) {
+          const form = fixture('vl-radios-in-form-fixture');
+          const radios = form.querySelectorAll('vl-radio');
+          radios[0].setAttribute('data-vl-checked', '');
+          assert.isTrue(radios[0].checked);
+          assert.isFalse(radios[1].checked);
+          radios[1].checked = true;
+          assert.isFalse(radios[0].checked);
+          assert.isTrue(radios[1].checked);
+          form.reset();
+          assert.isTrue(radios[0].checked);
+          assert.isFalse(radios[1].checked);
+        }
+      });
+
+      test('de form getters worden correct gedelegeerd', () => {
+        if (hasElementInternalsSupport()) {
+          const radio = fixture('vl-radio-fixture');
+          assert.equal(radio.form, radio._internals.form);
+          assert.equal(radio.validity, radio._internals.validity);
+          assert.equal(radio.validationMessage, radio._internals.validationMessage);
+          assert.equal(radio.willValidate, radio._internals.willValidate);
+        }
+      });
+
       test('het input change event wordt door geprogageerd', (done) => {
         const radio = fixture('vl-radio-fixture');
         radio.addEventListener('change', () => done());
