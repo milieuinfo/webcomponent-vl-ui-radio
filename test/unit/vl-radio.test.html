@@ -51,9 +51,9 @@
   <test-fixture id="vl-radios-in-form-fixture">
     <template>
       <form>
-        <vl-radio data-vl-value="1" data-vl-name="radio-group"></vl-radio>
-        <vl-radio data-vl-value="2" data-vl-name="radio-group"></vl-radio>
-        <vl-radio data-vl-value="3" data-vl-name="radio-group"></vl-radio>
+        <vl-radio data-vl-value="1" data-vl-name="radio-1"></vl-radio>
+        <vl-radio data-vl-value="2" data-vl-name="radio-2"></vl-radio>
+        <vl-radio data-vl-value="3" data-vl-name="radio-3"></vl-radio>
       </form>
     </template>
   </test-fixture>
@@ -248,7 +248,6 @@
         if (hasElementInternalsSupport()) {
           const form = fixture('vl-radios-in-form-fixture');
           const radios = form.querySelectorAll('vl-radio');
-          radios.forEach((radio, index) => radio.setAttribute('data-vl-name', `radio-${++index}`));
           radios.forEach((radio, index) => assert.equal(form[`radio-${++index}`], radio));
         }
       });
