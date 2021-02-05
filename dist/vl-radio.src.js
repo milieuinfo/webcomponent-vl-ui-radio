@@ -1,5 +1,5 @@
 import {vlElement, define} from 'vl-ui-core';
-import {vlRadioGroup} from 'vl-ui-radio/dist/vl-radio-group.src.js';
+import {vlRadioGroup} from '../dist/vl-radio-group.src.js';
 
 /**
  * VlRadio
