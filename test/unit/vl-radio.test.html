@@ -65,6 +65,10 @@
         return checkbox._internals != undefined;
       };
 
+      setup((done) => {
+        customElements.whenDefined('vl-radio').then(() => done());
+      });
+
       test('krijgt de juiste class wanneer de knop een attribuut bevat', () => {
         const radio = fixture('vl-radio-fixture');
         const radioLabel = radio.shadowRoot.querySelector('.vl-radio');

@@ -45,6 +45,12 @@
 
   <script>
     suite('<vl-radio-group>', () => {
+      setup((done) => {
+        customElements.whenDefined('vl-radio-group').then(() => {
+          customElements.whenDefined('vl-radio').then(() => done());
+        });
+      });
+
       test('zet het data-vl-name attribuut bij de radio child elementen', () => {
         const radioGroup = fixture('vl-radio-group-fixture');
         const radios = radioGroup.radios;
