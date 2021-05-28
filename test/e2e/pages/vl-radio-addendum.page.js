@@ -2,27 +2,7 @@ const VlRadio = require('../components/vl-radio');
 const {Page, Config, VlElement} = require('vl-ui-core').Test;
 const vlRadioPage = require('./vl-radio-mixin.page');
 
-class VlRadioPage extends vlRadioPage(Page) {
-  async getRadio(number) {
-    return this._getRadio(`#radio-${number}`);
-  }
-
-  async getBlockRadio(number) {
-    return this._getRadioByType('block', number);
-  }
-
-  async getErrorRadio(number) {
-    return this._getRadioByType('error', number);
-  }
-
-  async getDisabledRadio(number) {
-    return this._getRadioByType('disabled', number);
-  }
-
-  async getSingleRadio(number) {
-    return this._getRadioByType('single', number);
-  }
-
+class VlRadioAddendumPage extends vlRadioPage(Page) {
   async getCheckedRadio(number) {
     return this._getRadioByType('checked', number);
   }
@@ -46,4 +26,4 @@ class VlRadioPage extends vlRadioPage(Page) {
   }
 }
 
-module.exports = VlRadioPage;
+module.exports = VlRadioAddendumPage;

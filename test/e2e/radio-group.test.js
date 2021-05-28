@@ -12,6 +12,10 @@ describe('vl-radio-group', async () => {
     return vlRadioGroupPage.load();
   });
 
+  it('WCAG', async () => {
+    await assert.eventually.isFalse(vlRadioGroupPage.hasWcagIssues());
+  });
+
   it('als gebruiker kan ik maar 1 radio tegelijkertijd aanvinken', async () => {
     const radioGroup = await vlRadioGroupPage.getRadioGroup(1);
     const radio1 = await radioGroup.getRadio(1);
